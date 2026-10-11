@@ -17,9 +17,9 @@ company name.
 						
 Functionality:				
 								
-add,------------------>DONE 10.10.2026			  
-view,----------------->DONE 10.10.2026
-delete,						
+add------------------>DONE 10.10.2026			  
+view----------------->DONE 10.10.2026
+delete--------------->DONE 11.10.2026						
 search,
 edit,
 save to file,				
