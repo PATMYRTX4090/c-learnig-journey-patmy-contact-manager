@@ -16,6 +16,7 @@ int main(void)
 		printf("|                                            |\n");
 		printf("|     1. Add contact                         |\n");
 		printf("|     2. View contacts                       |\n");
+		printf("|     3. Delete contacts                     |\n");
 		printf("|     0. Exit                                |\n");
 		printf("+--------------------------------------------+\n");
 		int options = taking_number();
@@ -45,6 +46,7 @@ int main(void)
 			view_struct(my_addressbook);
 			break;
 		case 3:
+			delete_contact(my_addressbook);
 			break;
 		case 4:
 			break;

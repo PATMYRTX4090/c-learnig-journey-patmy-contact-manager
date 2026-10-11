@@ -1,68 +1,68 @@
-ROZMOWY MA£E I DU¯E Z AI (COPILOT AND GEMI)
+ï»¿ROZMOWY MAÅE I DUÅ»E Z AI (COPILOT AND GEMI)
 
-Nie zaczynaj jeszcze pisaæ kodu. Najpierw zaprojektuj.
+Nie zaczynaj jeszcze pisaÄ‡ kodu. Najpierw zaprojektuj.
 
-Projekt 1: Mened¿er kontaktów
+Projekt 1: MenedÅ¼er kontaktÃ³w
 
-Przygotuj odpowiedŸ na nastêpuj¹ce pytania:
+Przygotuj odpowiedÅº na nastÄ™pujÄ…ce pytania:
 
-1. Jak bêdzie wygl¹da³a struktura Contact?
-2. Jakie funkcje bêd¹ potrzebne?
-3. Jak bêd¹ przechowywane kontakty w pamiêci?
+1. Jak bÄ™dzie wyglÄ…daÅ‚a struktura Contact?
+2. Jakie funkcje bÄ™dÄ… potrzebne?
+3. Jak bÄ™dÄ… przechowywane kontakty w pamiÄ™ci?
 4. Jaki format pliku wybierzesz: tekstowy czy binarny?
 5. Jak podzielisz projekt na pliki .c i .h?
 
-Opisz mi sam projekt i architekturê. Nie pokazuj jeszcze kodu.
+Opisz mi sam projekt i architekturÄ™. Nie pokazuj jeszcze kodu.
 
 ODP_1:
-	Deklaracja struktury Conctact, bêdzie sk³ada³a siê z 4 tablic znaków odpowiednio dla imienia, nazwiska, numeru telefonów, oraz adresu email.
-	Wszystkim zmiennym rozmiar alokowanej pamiêci bêdzie przydzielany przez funckjê malloc(), Szkoda np. dla imienia które bêdzie mia³o 5 znaków + znak zerowy na sztywno
-	deklarowaæ wielkoœæ tablicy na 20 znaków, podobny tok myœlenia dla pozosta³ych zmiennych. Numer telefonu jako tablica char - nie bêd¹ wykonywane ¿adne operacje arytmetyczne. 
-	A iloœæ cyfr w numerze mo¿e byæ ró¿na. Dobrze by by³o dodaæ do struktury numer porz¹dkowy - coœ na miarê klucza podstawowego. 
-	Wykorzystam tablicê która bêdzie tymczasowym buforem a znacznej wielkoœæ - uproszczeniem bêdzie je¿eli interfejs bêdzie pyta³ o ka¿d¹ zmienn¹ z osobna. 
+	Deklaracja struktury Conctact, bÄ™dzie skÅ‚adaÅ‚a siÄ™ z 4 tablic znakÃ³w odpowiednio dla imienia, nazwiska, numeru telefonÃ³w, oraz adresu email.
+	Wszystkim zmiennym rozmiar alokowanej pamiÄ™ci bÄ™dzie przydzielany przez funckjÄ™ malloc(), Szkoda np. dla imienia ktÃ³re bÄ™dzie miaÅ‚o 5 znakÃ³w + znak zerowy na sztywno
+	deklarowaÄ‡ wielkoÅ›Ä‡ tablicy na 20 znakÃ³w, podobny tok myÅ›lenia dla pozostaÅ‚ych zmiennych. Numer telefonu jako tablica char - nie bÄ™dÄ… wykonywane Å¼adne operacje arytmetyczne. 
+	A iloÅ›Ä‡ cyfr w numerze moÅ¼e byÄ‡ rÃ³Å¼na. Dobrze by byÅ‚o dodaÄ‡ do struktury numer porzÄ…dkowy - coÅ› na miarÄ™ klucza podstawowego. 
+	Wykorzystam tablicÄ™ ktÃ³ra bÄ™dzie tymczasowym buforem a znacznej wielkoÅ›Ä‡ - uproszczeniem bÄ™dzie jeÅ¼eli interfejs bÄ™dzie pytaÅ‚ o kaÅ¼dÄ… zmiennÄ… z osobna. 
 	
 ODP_2:
-	Przede wszystkim standardowe funkcje z opracowanych ju¿ bibliotek <stdio.h>, z pewnoœci¹ konieczne bêdzie stworzenie funckji obs³uguj¹cej wprowadzanie ³añcuchów tekstowych (wpisywanie do bufora, 
-	dodawanie znaku zerowego, oraz obs³uga - zjadanie ENTERA). Konieczne bêdzie utworzenie menu, z mo¿liwoœcia wyboru instersuj¹cych Nas opcji tj. funckji aplikacji, do których bêd¹ nale¿a³y:
-	dodawanie, usuwanie, wyszukiwanie, je¿eli wyszukiwania to oczywiœcie EDYCJA (numer telefonu oraz email zawsze mo¿na zmieniæ, chocia¿ i by z faktu zmiany firmy). 
-	Kluczowe bêd¹ funkcjê umo¿liwiajace odczyt i zapis danych z plików - inaczej Contact Manager nie bêdzie mia³ sensu.
+	Przede wszystkim standardowe funkcje z opracowanych juÅ¼ bibliotek <stdio.h>, z pewnoÅ›ciÄ… konieczne bÄ™dzie stworzenie funckji obsÅ‚ugujÄ…cej wprowadzanie Å‚aÅ„cuchÃ³w tekstowych (wpisywanie do bufora, 
+	dodawanie znaku zerowego, oraz obsÅ‚uga - zjadanie ENTERA). Konieczne bÄ™dzie utworzenie menu, z moÅ¼liwoÅ›cia wyboru instersujÄ…cych Nas opcji tj. funckji aplikacji, do ktÃ³rych bÄ™dÄ… naleÅ¼aÅ‚y:
+	dodawanie, usuwanie, wyszukiwanie, jeÅ¼eli wyszukiwania to oczywiÅ›cie EDYCJA (numer telefonu oraz email zawsze moÅ¼na zmieniÄ‡, chociaÅ¼ i by z faktu zmiany firmy). 
+	Kluczowe bÄ™dÄ… funkcjÄ™ umoÅ¼liwiajace odczyt i zapis danych z plikÃ³w - inaczej Contact Manager nie bÄ™dzie miaÅ‚ sensu.
 ODP_3:
-	W strukturze, musmi wykorzystaæ listê ³¹czon¹ - gdy¿ alokowanie na sztywno w pamiêci bêdzie prostym rozwi¹zaniem ale jednoczeœnie nie efektywnym.
+	W strukturze, musmi wykorzystaÄ‡ listÄ™ Å‚Ä…czonÄ… - gdyÅ¼ alokowanie na sztywno w pamiÄ™ci bÄ™dzie prostym rozwiÄ…zaniem ale jednoczeÅ›nie nie efektywnym.
 ODP_4:
-	Na pocz¹tku skorzytam z pliku tekstowego, w czasie tworzenia testowania, bêdzie du¿o ³atwiej wy³apaæ ewentulane b³êdy. Dodatkowo w ostatecznym tescie, bêdzie mo¿na wygenerowaæ
-	przyk³adowy plik txt zgodnie z obs³ugiwanym odczytem danym z pliku i sprawdziæ funkcjonalnoœæ np. dla 1000 kontaktów. 
+	Na poczÄ…tku skorzytam z pliku tekstowego, w czasie tworzenia testowania, bÄ™dzie duÅ¼o Å‚atwiej wyÅ‚apaÄ‡ ewentulane bÅ‚Ä™dy. Dodatkowo w ostatecznym tescie, bÄ™dzie moÅ¼na wygenerowaÄ‡
+	przykÅ‚adowy plik txt zgodnie z obsÅ‚ugiwanym odczytem danym z pliku i sprawdziÄ‡ funkcjonalnoÅ›Ä‡ np. dla 1000 kontaktÃ³w. 
 ODP_5
-	Ka¿da z funkcji w osobnym pliku .c, deklaracje funkcji w pliku nag³ówkowym .h 
-	Zmienne globalne w³asny plik .c oraz plik nag³ówkowy .h ze s³owem kluczowym extern. Porz¹dek porz¹dek i jeszcze raz porz¹dek, mo¿e przesadzam ale chodzi o wygodê analizy i tworzenia czytelnego kodu. 
+	KaÅ¼da z funkcji w osobnym pliku .c, deklaracje funkcji w pliku nagÅ‚Ã³wkowym .h 
+	Zmienne globalne wÅ‚asny plik .c oraz plik nagÅ‚Ã³wkowy .h ze sÅ‚owem kluczowym extern. PorzÄ…dek porzÄ…dek i jeszcze raz porzÄ…dek, moÅ¼e przesadzam ale chodzi o wygodÄ™ analizy i tworzenia czytelnego kodu. 
 
-Potem przejdziemy przez review projektu dok³adnie tak, jak zrobi³by to senior podczas przegl¹du projektu w pracy.
+Potem przejdziemy przez review projektu dokÅ‚adnie tak, jak zrobiÅ‚by to senior podczas przeglÄ…du projektu w pracy.
 
 07.10.2026 17:51
 Pytanie mentorskie:
 
-Jeœli baza ma 1000 kontaktów, ile pamiêci "stracisz" stosuj¹c sta³e tablice?
-Z moim obliczeñ wynika, ¿e przy za³o¿eniu 1000 kontaktów ca³y plik powinien wa¿yæ oko³o 144 kb ~ 0,1 Mb.
+JeÅ›li baza ma 1000 kontaktÃ³w, ile pamiÄ™ci "stracisz" stosujÄ…c staÅ‚e tablice?
+Z moim obliczeÅ„ wynika, Å¼e przy zaÅ‚oÅ¼eniu 1000 kontaktÃ³w caÅ‚y plik powinien waÅ¼yÄ‡ okoÅ‚o 144 kb ~ 0,1 Mb.
 
 
 Czy nowy kontakt dostanie ID = 15 czy ID = 21?
 Nie odpowiadaj od razu.
-Przemyœl konsekwencje obu rozwi¹zañ. 
-Do struktury dodam zmienna bool, true - oznaczaæ bêdzie ¿e numer ID jest wype³niony, natomias false - ¿e, miejsce jest wolne i mo¿na je wype³niæ. Wi¹¿e, siê to z tym, ¿e w
-funckji dodaj¹cej kontakt, konieczne bêdzie zaimplementowanie dodatkowej pêtli sprawdzaj¹cej dostêpnoœæ. 
+PrzemyÅ›l konsekwencje obu rozwiÄ…zaÅ„. 
+Do struktury dodam zmienna bool, true - oznaczaÄ‡ bÄ™dzie Å¼e numer ID jest wypeÅ‚niony, natomias false - Å¼e, miejsce jest wolne i moÅ¼na je wypeÅ‚niÄ‡. WiÄ…Å¼e, siÄ™ to z tym, Å¼e w
+funckji dodajÄ…cej kontakt, konieczne bÄ™dzie zaimplementowanie dodatkowej pÄ™tli sprawdzajÄ…cej dostÄ™pnoÅ›Ä‡. 
 
-Jaki bêdzie najczêstszy scenariusz?
-z pewnoœci¹ dodawanie, ale w tym przypadku pewnie dodawanie, bêdzie u¿yte kilka razy, w celu sprawdzenie funkcjonalnoœci, clue dzia³ania, bêdzie opiera³o siê na
-odczytaniu pliku i zapisaniun w zaalokowanej pamiêci. Nie wybra¿am siê wpisywanie 1000 kontaktów dla testów. 
+Jaki bÄ™dzie najczÄ™stszy scenariusz?
+z pewnoÅ›ciÄ… dodawanie, ale w tym przypadku pewnie dodawanie, bÄ™dzie uÅ¼yte kilka razy, w celu sprawdzenie funkcjonalnoÅ›ci, clue dziaÅ‚ania, bÄ™dzie opieraÅ‚o siÄ™ na
+odczytaniu pliku i zapisaniun w zaalokowanej pamiÄ™ci. Nie wybraÅ¼am siÄ™ wpisywanie 1000 kontaktÃ³w dla testÃ³w. 
 
 Co jest szybsze do iterowania?
-tablica dynamiczna - szybko i przgotowanie kodu bêdzie du¿o prostrze. 
+tablica dynamiczna - szybko i przgotowanie kodu bÄ™dzie duÅ¼o prostrze. 
 
-Czy ten program w ogóle potrzebuje zmiennych globalnych?
-To by³a moja pierwsza myœl, globale i sprawa zmiennych rozwi¹zana. OK, tak skonstruje program, aby globalnych zmiennych nie by³o. 
+Czy ten program w ogÃ³le potrzebuje zmiennych globalnych?
+To byÅ‚a moja pierwsza myÅ›l, globale i sprawa zmiennych rozwiÄ…zana. OK, tak skonstruje program, aby globalnych zmiennych nie byÅ‚o. 
 
-Najwa¿niejsze pytanie na nastêpne spotkanie
+NajwaÅ¼niejsze pytanie na nastÄ™pne spotkanie
 
-Chcia³bym, ¿ebyœ przemyœla³ jeden temat:
+ChciaÅ‚bym, Å¼ebyÅ› przemyÅ›laÅ‚ jeden temat:
 
 Dynamiczna tablica czy lista jednokierunkowa?
 
@@ -72,17 +72,17 @@ Dynamiczna tablica
 
 Plusy:
 
-+ ³atwoœæ, tworzenia, obs³ugi, pêtli 
++ Å‚atwoÅ›Ä‡, tworzenia, obsÅ‚ugi, pÄ™tli 
 
 Minusy:
 
-- z pewnoœci¹ fakt, ¿e pêtla na sta³e przydziela pamiêæ, jednak je¿eli Moje obliczenia s¹ prawid³owe to tylko 144 kb.
+- z pewnoÅ›ciÄ… fakt, Å¼e pÄ™tla na staÅ‚e przydziela pamiÄ™Ä‡, jednak jeÅ¼eli Moje obliczenia sÄ… prawidÅ‚owe to tylko 144 kb.
 
 Lista jednokierunkowa
 
-Napiszê dlaczego chcia³em spróbowaæ listy - poniewa¿ w czasie przerabiania Jêzyk C Szko³a Programowania, wielokrotnie zetkn¹³em siê z tablicami. 
-Lista mia³a podnieœæ poprzeczkê, ale myœle, ¿e w tym projekcie i tak bêdzie kilka problemów, z które bêd¹ wymaga³y rozwi¹zania. 
-A lista mog³a by to tylko niepotrzebnie skomplikowaæ.
+NapiszÄ™ dlaczego chciaÅ‚em sprÃ³bowaÄ‡ listy - poniewaÅ¼ w czasie przerabiania JÄ™zyk C SzkoÅ‚a Programowania, wielokrotnie zetknÄ…Å‚em siÄ™ z tablicami. 
+Lista miaÅ‚a podnieÅ›Ä‡ poprzeczkÄ™, ale myÅ›le, Å¼e w tym projekcie i tak bÄ™dzie kilka problemÃ³w, z ktÃ³re bÄ™dÄ… wymagaÅ‚y rozwiÄ…zania. 
+A lista mogÅ‚a by to tylko niepotrzebnie skomplikowaÄ‡.
 
 
 Plusy:
@@ -91,58 +91,58 @@ Plusy:
 
 Minusy:
 
-? komplikacje, które mog³y by opóŸniæ realizacjê projektu. 
+? komplikacje, ktÃ³re mogÅ‚y by opÃ³ÅºniÄ‡ realizacjÄ™ projektu. 
 
 Decyzja: dynamiczna tablica. 
 
-Podzia³ modu³ów (wstêpny)
+PodziaÅ‚ moduÅ‚Ã³w (wstÄ™pny)
 
-main.c		-> trzon programu, z szablonem dostêpnych mo¿liwoœci oraz mo¿liwoœci¹ zamkniêcia aplikacji. 
-contacts.c	-> definicje funckji odpowiedzialnych za obs³ugê kontaktów: dodawanie, usuwanie, edycja, wyszukiwanie, wyœwietlenie dostepnych kontaktów, funkcja obs³uguj¹ca ³añcuchy znakowe,
+main.c		-> trzon programu, z szablonem dostÄ™pnych moÅ¼liwoÅ›ci oraz moÅ¼liwoÅ›ciÄ… zamkniÄ™cia aplikacji. 
+contacts.c	-> definicje funckji odpowiedzialnych za obsÅ‚ugÄ™ kontaktÃ³w: dodawanie, usuwanie, edycja, wyszukiwanie, wyÅ›wietlenie dostepnych kontaktÃ³w, funkcja obsÅ‚ugujÄ…ca Å‚aÅ„cuchy znakowe,
 files.c		-> definicje funkcji odpowiedzialnych za: zapis do pliku oraz odczyt z pliku,
-cf.h		-> deklaracje funckcji, tu chcia³bym umiesciæ równie¿ deklaracje struktury.
-oczywiœcie dostêpne biblioteki np. stdio.h, string.h, stdlib.h
+cf.h		-> deklaracje funckcji, tu chciaÅ‚bym umiesciÄ‡ rÃ³wnieÅ¼ deklaracje struktury.
+oczywiÅ›cie dostÄ™pne biblioteki np. stdio.h, string.h, stdlib.h
 
-Przep³yw programu:
+PrzepÅ‚yw programu:
 Pierwsze uruchomienie.
-1. Uruchomienie programu (nie mamy ¿adnego pliku z kontaktami, tablica dynamiczna pamiêæ przydzielona dla tablicy z jedn¹ struktur¹), 
-2. Wybranie funkcji dodawania kontaktów - dodanie kontaktu bezpoœrednio do struktury, 
+1. Uruchomienie programu (nie mamy Å¼adnego pliku z kontaktami, tablica dynamiczna pamiÄ™Ä‡ przydzielona dla tablicy z jednÄ… strukturÄ…), 
+2. Wybranie funkcji dodawania kontaktÃ³w - dodanie kontaktu bezpoÅ›rednio do struktury, 
 	- wprowadzenie imienia
 	- wprowadzenie nazwiska,
 	- wprawdzenie numeru telefonu,
 	- wprawdzenie adresu email, 
-	- zmiana zmienna bool -  na true - pozycja wype³niona,
-	- realokacja pamiêci dla i+1 - robimy miejsce dla kolejnego kontaktu,
-3. Korzytanie z funkcji obs³uguj¹cych kontakty,
-4. Zapis do pliku, zapytamy o nazwê i rozrzerzenie pliku, atrybuty zapisu - wymazania bie¿acej zawartoœci i wprowadzenie nowej.
-W pierwszym wierszu zapisanego pliku musi znajdowaæ siê wartoœæ ca³kowita - bêdzie potrzebna podczas uruchamiana funckji odczytuj¹cych pozwoli na 
-przydzielenie odpowieodniej iloœæi pamiêci dla tablicy struktur. 
-5. Odczyt z pliku: odczytanie sta³ej ca³kowitej realokacja pamiêci, odczytywanie i zapis w pamiêci. 
+	- zmiana zmienna bool -  na true - pozycja wypeÅ‚niona,
+	- realokacja pamiÄ™ci dla i+1 - robimy miejsce dla kolejnego kontaktu,
+3. Korzytanie z funkcji obsÅ‚ugujÄ…cych kontakty,
+4. Zapis do pliku, zapytamy o nazwÄ™ i rozrzerzenie pliku, atrybuty zapisu - wymazania bieÅ¼acej zawartoÅ›ci i wprowadzenie nowej.
+W pierwszym wierszu zapisanego pliku musi znajdowaÄ‡ siÄ™ wartoÅ›Ä‡ caÅ‚kowita - bÄ™dzie potrzebna podczas uruchamiana funckji odczytujÄ…cych pozwoli na 
+przydzielenie odpowieodniej iloÅ›Ä‡i pamiÄ™ci dla tablicy struktur. 
+5. Odczyt z pliku: odczytanie staÅ‚ej caÅ‚kowitej realokacja pamiÄ™ci, odczytywanie i zapis w pamiÄ™ci. 
 
 
-Profesjonalne kontenery zwykle przechowuj¹: to jest bardzo dobra podpowiedŸ. Przy 1000 kontaktów wykonanm 1000 realokacji, przy capacity = 10, ju¿ realokacji bêdzie tylko 100.
+Profesjonalne kontenery zwykle przechowujÄ…: to jest bardzo dobra podpowiedÅº. Przy 1000 kontaktÃ³w wykonanm 1000 realokacji, przy capacity = 10, juÅ¼ realokacji bÄ™dzie tylko 100.
 
-Czy usuniêty kontakt powinien nadal zajmowaæ miejsce w tablicy?
-Uwa¿am ¿e Wariant A i Wariant B bêd¹ istnia³y razem -   pozostawienie zmiennej active i tak pozwoli na samo naprawianie siê tablicy, gdy¿: zapis do pliku tylko tych rekodrów w których bêdzie active == true,
-a po odczytanie takiego pliku wszystkie rekordy bêd¹ zawiera³y tylko te po¿¹dane kontakty. Contact Manager poprzez zapis i odczyt pliku - bêdzie siê samodzielnie "czyœci³".
-Czy na pocz¹tku programu istnieje jakikolwiek kontakt?
-no nie - wiêc alokacja dopiero po wybraniu opcji dodania lub odczytu danych. 
-Dla rêcznego wprowadzania - alokacja dla 5 - 10 kontaktów z wykorzystaniem idei konteneru - gdy size == capacity wówczas realokacja. 
-Dla pliku - liczba ca³kowita z pierwszego wersu okreœli ile potrzebujemy aby zmieœciæ zawartoœæ pliku + 5-10 aby umo¿liwiæ rêczne dodanie. 
-Równie dobrze mo¿emy zapytaæ wprowadzaj¹cego kontakty ile miejsca potrzebuje. 
+Czy usuniÄ™ty kontakt powinien nadal zajmowaÄ‡ miejsce w tablicy?
+UwaÅ¼am Å¼e Wariant A i Wariant B bÄ™dÄ… istniaÅ‚y razem -   pozostawienie zmiennej active i tak pozwoli na samo naprawianie siÄ™ tablicy, gdyÅ¼: zapis do pliku tylko tych rekodrÃ³w w ktÃ³rych bÄ™dzie active == true,
+a po odczytanie takiego pliku wszystkie rekordy bÄ™dÄ… zawieraÅ‚y tylko te poÅ¼Ä…dane kontakty. Contact Manager poprzez zapis i odczyt pliku - bÄ™dzie siÄ™ samodzielnie "czyÅ›ciÅ‚".
+Czy na poczÄ…tku programu istnieje jakikolwiek kontakt?
+no nie - wiÄ™c alokacja dopiero po wybraniu opcji dodania lub odczytu danych. 
+Dla rÄ™cznego wprowadzania - alokacja dla 5 - 10 kontaktÃ³w z wykorzystaniem idei konteneru - gdy size == capacity wÃ³wczas realokacja. 
+Dla pliku - liczba caÅ‚kowita z pierwszego wersu okreÅ›li ile potrzebujemy aby zmieÅ›ciÄ‡ zawartoÅ›Ä‡ pliku + 5-10 aby umoÅ¼liwiÄ‡ rÄ™czne dodanie. 
+RÃ³wnie dobrze moÅ¼emy zapytaÄ‡ wprowadzajÄ…cego kontakty ile miejsca potrzebuje. 
 
-informacjê o stanie bazy?
+informacjÄ™ o stanie bazy?
 
-Jak myœlisz, czy warto stworzyæ dodatkow¹ strukturê, np. coœ reprezentuj¹cego ca³¹ ksi¹¿kê kontaktów, a nie tylko pojedynczy kontakt?
-Interesuje mnie wy³¹cznie odpowiedŸ architektoniczna: jakie informacje program powinien przechowywaæ oprócz samego kontaktu?
-Dodanie struktury z w³asnoœciami ksi¹zki adresowej da mo¿liwoœæ panowania nad zasobem. Oprócz wczeœniej wymienionych w³asnoœci jak: pojemnoœæ oraz stopieñ wype³nienia, pozwoli równie¿
-dodaæ informacjê o nazwie pliku z jakiego zosta³a odczytane rekordy, czy te¿ zapisaliœmy bie¿¹c¹ ksi¹zkê adresow¹ - zabezpieczy to przed utrat¹ danych.
-Bêdzie mozliwe równie¿ okreœlenie ile rekordu podczas zapisu zostanie usuniête. 
+Jak myÅ›lisz, czy warto stworzyÄ‡ dodatkowÄ… strukturÄ™, np. coÅ› reprezentujÄ…cego caÅ‚Ä… ksiÄ…Å¼kÄ™ kontaktÃ³w, a nie tylko pojedynczy kontakt?
+Interesuje mnie wyÅ‚Ä…cznie odpowiedÅº architektoniczna: jakie informacje program powinien przechowywaÄ‡ oprÃ³cz samego kontaktu?
+Dodanie struktury z wÅ‚asnoÅ›ciami ksiÄ…zki adresowej da moÅ¼liwoÅ›Ä‡ panowania nad zasobem. OprÃ³cz wczeÅ›niej wymienionych wÅ‚asnoÅ›ci jak: pojemnoÅ›Ä‡ oraz stopieÅ„ wypeÅ‚nienia, pozwoli rÃ³wnieÅ¼
+dodaÄ‡ informacjÄ™ o nazwie pliku z jakiego zostaÅ‚a odczytane rekordy, czy teÅ¼ zapisaliÅ›my bieÅ¼Ä…cÄ… ksiÄ…zkÄ™ adresowÄ… - zabezpieczy to przed utratÄ… danych.
+BÄ™dzie mozliwe rÃ³wnieÅ¼ okreÅ›lenie ile rekordu podczas zapisu zostanie usuniÄ™te. 
 
-Co zrobisz, jeœli u¿ytkownik rêcznie zmodyfikuje plik?
-je¿eli nie bêdzie sztucznie przesuwa³ EOF - wówczas myœle, ¿e zaimplementuje odpwiednia pu³apkê. 
+Co zrobisz, jeÅ›li uÅ¼ytkownik rÄ™cznie zmodyfikuje plik?
+jeÅ¼eli nie bÄ™dzie sztucznie przesuwaÅ‚ EOF - wÃ³wczas myÅ›le, Å¼e zaimplementuje odpwiednia puÅ‚apkÄ™. 
 
-1. Po czym program rozpozna kontakt do usuniêcia?
+1. Po czym program rozpozna kontakt do usuniÄ™cia?
 
 Po:
 
@@ -153,88 +153,259 @@ numerze telefonu?
 
 Dlaczego?
 
-¯adna z tych informacje, w strukturze musi byæ dodana zmienna np. bool active, je¿eli bêdzie mia³a wartoœæ false oznaczaæ to bêdzie, ¿e kontakt jest do usuniêcia.
+Å»adna z tych informacje, w strukturze musi byÄ‡ dodana zmienna np. bool active, jeÅ¼eli bÄ™dzie miaÅ‚a wartoÅ›Ä‡ false oznaczaÄ‡ to bÄ™dzie, Å¼e kontakt jest do usuniÄ™cia.
 
-1. Czy dwa kontakty mog¹ mieæ:
+1. Czy dwa kontakty mogÄ… mieÄ‡:
 
 Plain Text
-to samo imiê
+to samo imiÄ™
 to samo nazwisko
 
-Jak dzia³a wyszukiwanie?
-Tak dwa kontakty mog¹ mieæ takie same imiona i nazwiska. Gdy naprzyk³ad wyszukuje kontakt w telefonie, najpierwsz wpisuje imiê, nastêpnie nazwisko.
-W tym wypadku zapytam u¿ytkownika wed³ug czego bêdziemy wyszukiwaæ, imiê, nazwisko, numer telefonu, adres email.
-Numery rekordów, które bêd¹ zwiera³y trafienia, zapiszê w tablicy liczb ca³kowitych, któr¹ po¿niej wykorzystam do wyœwietlenia wyników. 
-U¿ytkownik zdecuduje czy który rekord mu odpowiada. 
+Jak dziaÅ‚a wyszukiwanie?
+Tak dwa kontakty mogÄ… mieÄ‡ takie same imiona i nazwiska. Gdy naprzykÅ‚ad wyszukuje kontakt w telefonie, najpierwsz wpisuje imiÄ™, nastÄ™pnie nazwisko.
+W tym wypadku zapytam uÅ¼ytkownika wedÅ‚ug czego bÄ™dziemy wyszukiwaÄ‡, imiÄ™, nazwisko, numer telefonu, adres email.
+Numery rekordÃ³w, ktÃ³re bÄ™dÄ… zwieraÅ‚y trafienia, zapiszÄ™ w tablicy liczb caÅ‚kowitych, ktÃ³rÄ… poÅ¼niej wykorzystam do wyÅ›wietlenia wynikÃ³w. 
+UÅ¼ytkownik zdecuduje czy ktÃ³ry rekord mu odpowiada. 
 
-Czy program ma obs³ugiwaæ jedn¹ ksi¹¿kê adresow¹ naraz?
+Czy program ma obsÅ‚ugiwaÄ‡ jednÄ… ksiÄ…Å¼kÄ™ adresowÄ… naraz?
 
 Czy wiele?
 
-Jedna ksi¹¿ka adresowa obs³ugiwana naraz, natomiast mogê dodaæ do struktury kontaktu równie¿ np. nazwê firmy lub szko³e.
+Jedna ksiÄ…Å¼ka adresowa obsÅ‚ugiwana naraz, natomiast mogÄ™ dodaÄ‡ do struktury kontaktu rÃ³wnieÅ¼ np. nazwÄ™ firmy lub szkoÅ‚e.
 
-Gdybym by³ Twoim koleg¹ z zespo³u...
+Gdybym byÅ‚ Twoim kolegÄ… z zespoÅ‚u...
 
-zada³bym Ci jeszcze jedno pytanie przed startem implementacji.
-Funkcje te powinny operowaæ na Contact
+zadaÅ‚bym Ci jeszcze jedno pytanie przed startem implementacji.
+Funkcje te powinny operowaÄ‡ na Contact
 
 
-1. Czy nadal wiesz gdzie zaczyna siê tablica? 
-Nie wiem gdzie jest pocz¹tek tablicy, dlatego utworzony zosta³ wskaŸnik const - w celu zapisania. Przemyœle to i pozosta³ymi sugestiami zmieniê. 
-Faktycznie rezygnacja z globalnej zmiennej adressbook Mi w tym pomo¿e. 
-2. Jaki adres powinien dostaæ realloc()?
-Oczywiœcie, ¿e pocz¹tku tablicy - wartoœæ wskaŸnika, który zwróci³a funckja malloc(). W przciwnym wypadku otrzymuje b³¹d dostêpu do pamiêci. 
-3. Który wskaŸnik reprezentuje w³aœciciela pamiêci?
-WskaŸnik do struktury AdressBook. 
+1. Czy nadal wiesz gdzie zaczyna siÄ™ tablica? 
+Nie wiem gdzie jest poczÄ…tek tablicy, dlatego utworzony zostaÅ‚ wskaÅºnik const - w celu zapisania. PrzemyÅ›le to i pozostaÅ‚ymi sugestiami zmieniÄ™. 
+Faktycznie rezygnacja z globalnej zmiennej adressbook Mi w tym pomoÅ¼e. 
+2. Jaki adres powinien dostaÄ‡ realloc()?
+OczywiÅ›cie, Å¼e poczÄ…tku tablicy - wartoÅ›Ä‡ wskaÅºnika, ktÃ³ry zwrÃ³ciÅ‚a funckja malloc(). W przciwnym wypadku otrzymuje bÅ‚Ä…d dostÄ™pu do pamiÄ™ci. 
+3. KtÃ³ry wskaÅºnik reprezentuje wÅ‚aÅ›ciciela pamiÄ™ci?
+WskaÅºnik do struktury AdressBook. 
 
 
 10.10.2026  
 
-Nazewnictwo - s³uszna uwaga porz¹dek w nazewnictwie musi byæ, dobra praktyka, nazwa musi siê zgadzaæ z tym co reprezetuje, dobre wp³ywaj¹ na 'flow' podczas pisania kodu. POPRAWIONO.
+Nazewnictwo - sÅ‚uszna uwaga porzÄ…dek w nazewnictwie musi byÄ‡, dobra praktyka, nazwa musi siÄ™ zgadzaÄ‡ z tym co reprezetuje, dobre wpÅ‚ywajÄ… na 'flow' podczas pisania kodu. POPRAWIONO.
 
-Jasne temat do rozwa¿enia, czy móg³bym prosiæ o Ÿród³o dla tego:
-Ale pomyœl o takim zwyczaju:
+Jasne temat do rozwaÅ¼enia, czy mÃ³gÅ‚bym prosiÄ‡ o ÅºrÃ³dÅ‚o dla tego:
+Ale pomyÅ›l o takim zwyczaju:
 
 C
 free(ptr);
 ptr = NULL;
 Nie zawsze konieczne.
-Ale czêsto pomaga podczas debugowania.
+Ale czÄ™sto pomaga podczas debugowania.
 
 Pytanie mentorskie:
-Czy u¿ytkownik powinien dostaæ mo¿liwoœæ wyœwietlenia pustej ksi¹¿ki adresowej?
-Nie nie powinien, i jak najbardziej s³uszne jest, aby program wróci³ do menu g³ównego. 
-Ta dwójka mog³a byc oczywiœcie jako 'miss-click', wiêc musimy daæ uzytkownikowy mozliwoœæ poprawy.
-Poprawiono i funkcja wraca do menu g³ównego. 
+Czy uÅ¼ytkownik powinien dostaÄ‡ moÅ¼liwoÅ›Ä‡ wyÅ›wietlenia pustej ksiÄ…Å¼ki adresowej?
+Nie nie powinien, i jak najbardziej sÅ‚uszne jest, aby program wrÃ³ciÅ‚ do menu gÅ‚Ã³wnego. 
+Ta dwÃ³jka mogÅ‚a byc oczywiÅ›cie jako 'miss-click', wiÄ™c musimy daÄ‡ uzytkownikowy mozliwoÅ›Ä‡ poprawy.
+Poprawiono i funkcja wraca do menu gÅ‚Ã³wnego. 
 
 
-Ale nigdzie nie widzê inicjalizacji pól:
+Ale nigdzie nie widzÄ™ inicjalizacji pÃ³l:
 C
-active =  true; --> dla wszystkich kontaktów. 
-Przyj¹³em za³o¿enie, ¿e active = true, faktycznie dochodzi do uzupe³niania danych w current contacts. 
-Mo¿na zadaæ pytanie dlaczego dlaczego ? 
-Z przeprowadzonych testów debugowania aplikacji i wykonywania jej krok po kroku (w celu dog³êbnej analizy zachowania, poszczególnych elementów, wiem, ¿e:
-wartoœci active po malloc - zgodnie z oknem lokalne przyjmuje wartoœæ true(205), jednak gdy tak zainicjalizowan¹ zmienn¹ wprwadzimy do pêtli: 
+active =  true; --> dla wszystkich kontaktÃ³w. 
+PrzyjÄ…Å‚em zaÅ‚oÅ¼enie, Å¼e active = true, faktycznie dochodzi do uzupeÅ‚niania danych w current contacts. 
+MoÅ¼na zadaÄ‡ pytanie dlaczego dlaczego ? 
+Z przeprowadzonych testÃ³w debugowania aplikacji i wykonywania jej krok po kroku (w celu dogÅ‚Ä™bnej analizy zachowania, poszczegÃ³lnych elementÃ³w, wiem, Å¼e:
+wartoÅ›ci active po malloc - zgodnie z oknem lokalne przyjmuje wartoÅ›Ä‡ true(205), jednak gdy tak zainicjalizowanÄ… zmiennÄ… wprwadzimy do pÄ™tli: 
 while (wsk_current_contacts->active == true)
 {
     wsk_current_contacts++;
 }
-Pêtla zachowuje siê jakby ta wartoœæ by³a false, nie wykonuje interacji. 
-Dodatkowo pêtla powy¿ej wed³ug Mojej oceny wykonuje solidn¹ robotê, ze wzglêdu na funckje realloc, w kodzie jest:
+PÄ™tla zachowuje siÄ™ jakby ta wartoÅ›Ä‡ byÅ‚a false, nie wykonuje interacji. 
+Dodatkowo pÄ™tla powyÅ¼ej wedÅ‚ug Mojej oceny wykonuje solidnÄ… robotÄ™, ze wzglÄ™du na funckje realloc, w kodzie jest:
 
 my_addressbook->contacts = (Contact*)realloc(my_addressbook->contacts, my_addressbook->capacity * sizeof(Contact));
 wsk_current_contacts = my_addressbook->contacts;
 
-W moim przypadku ka¿dy zakoñczony sukcesem realloc zwraca nowy adress, wygl¹da to tak jak dane ju¿ zapisane by³y kopiowane w nowe miejsce, 
-którego wielkoœæ jest zainicjalizowana zgodnie z my_addressbook->capacity * sizeof(Contact).
-wsk_current_contacts = my_addressbook->contacts; w tym momencie wskazuje na nic innego jak na pocz¹tek tablicy, defacto, tablicy ju¿ uzupe³nionej.
-Dziêki tej pêtli i warunkowi, odnajduje ostatni element w tablicy i przygotowuje siê do zapisu nowych elementów we w³aœciwym adresie. 
-W przeciwnym przypadku, ka¿da realloc powoduje nadpisywanie istniej¹cych danych. 
-Nie wiem czego to wynika, zgodnie z dokumentacj¹ realloc pownien rozszerzyæ blok i zwróciæ adres pierwotny.
+W moim przypadku kaÅ¼dy zakoÅ„czony sukcesem realloc zwraca nowy adress, wyglÄ…da to tak jak dane juÅ¼ zapisane byÅ‚y kopiowane w nowe miejsce, 
+ktÃ³rego wielkoÅ›Ä‡ jest zainicjalizowana zgodnie z my_addressbook->capacity * sizeof(Contact).
+wsk_current_contacts = my_addressbook->contacts; w tym momencie wskazuje na nic innego jak na poczÄ…tek tablicy, defacto, tablicy juÅ¼ uzupeÅ‚nionej.
+DziÄ™ki tej pÄ™tli i warunkowi, odnajduje ostatni element w tablicy i przygotowuje siÄ™ do zapisu nowych elementÃ³w we wÅ‚aÅ›ciwym adresie. 
+W przeciwnym przypadku, kaÅ¼da realloc powoduje nadpisywanie istniejÄ…cych danych. 
+Nie wiem czego to wynika, zgodnie z dokumentacjÄ… realloc pownien rozszerzyÄ‡ blok i zwrÃ³ciÄ‡ adres pierwotny.
 
 Co zwraca malloc():
 
-pamiêæ wyzerowan¹?
-pamiêæ zawieraj¹c¹ œmieci?
+pamiÄ™Ä‡ wyzerowanÄ…?
+pamiÄ™Ä‡ zawierajÄ…cÄ… Å›mieci?
 
-Wydaje mi siê ze zwraca œmieci.
+Wydaje mi siÄ™ ze zwraca Å›mieci.
+
+
+11.10.2026
+Teraz maÅ‚e pytanie mentorskie.
+SpÃ³jrz na swÃ³j obecny kod:
+C
+my_addressbook->contacts = realloc(my_addressbook->contacts, ...);
+Â 
+if (my_addressbook->contacts == NULL)
+{
+...
+}
+
+ZaÅ‚Ã³Å¼my, Å¼e realloc() zwraca NULL.
+
+W tym konkretnym miejscu Twojego programu:
+
+czy utracisz tylko adres, czy takÅ¼e wszystkie kontakty wpisane wczeÅ›niej przez uÅ¼ytkownika?
+
+JeÅ¼eli realloc() zwrÃ³ci null, stracÄ™ adres do wskaÅºnika ktÃ³ry wskazywaÅ‚ na poczÄ…tek tablicy. 
+Dane oczywiÅ›cie bÄ™da zapisane w pamiÄ™ci jest bez zaimplementowania w programie wyjÅ›cia awaryjnego 
+z takiej sytuacji nie bÄ™dÄ™ miaÅ‚ moÅ¼liwoÅ›ci odczytania danych a nawet zwolnienia. 
+Czy moÅ¼e byÅ‚oby dobrÄ… praktykÄ… w funkcji init_struct() stworzyÄ‡ dodatkowo tablicÄ™ wskaÅºnikÃ³w, 
+ktÃ³rej zadaniem byÅ‚oby przechowywanie tych adres i wykorzystanie ich w sytuacji awaryjne ? 
+
+Najciekawsza rzecz
+Nadal widzÄ™:
+C
+while (wsk_current_contacts->active == true)
+{
+wsk_current_contacts++;
+}
+I wracamy do naszej dawnej rozmowy.
+Powiedz mi:
+Gdzie inicjalizujesz wszystkie pola active na false po pierwszym malloc() albo po pÃ³Åºniejszym realloc()?
+Bo ja nadal tego nie widzÄ™.
+A to oznacza, Å¼e dziaÅ‚anie programu wciÄ…Å¼ zaleÅ¼y od zawartoÅ›ci niezainicjalizowanej pamiÄ™ci.
+
+OK, sÅ‚usznie stworzyÅ‚em dodatkowÄ… funckjÄ™ obsÅ‚ugujÄ…cÄ… ten warunek. PokaÅ¼Ä™, kod w momencie w ktÃ³rym rozwiÄ…ze bug, pofjawiajÄ…cy siÄ™ po: 
+
+capacity *= 2;
+
+powoduje to Å¼e po wpisaniu 4 kontaktu i wyjÅ›ciu do menu a nastÄ™pnie powrÃ³t do funckji dodawania - nie wykonuje realloc() pamiÄ™ci,
+a objawia siÄ™ to: 
+capacity = 4,
+natomiast size = 5, 
+
+
+Czy przy dodawaniu kontaktu naprawdÄ™ potrzebujesz szukaÄ‡ koÅ„ca tablicy przez active, skoro juÅ¼ przechowujesz size?
+SÅ‚usznie active i prosty zapis tablicowy, jednak chciaÅ‚em wykonywaÄ‡ operacje na wskaÅºnikach bez notacji tablicowej. 
+Tak o maÅ‚e utrudnienie. 
+
+Wrzucam pliki do cod review, nie jest to moÅ¼e idealne rozwiÄ…zanie ale sprawdza siÄ™ i dziaÅ‚a - przetestowane na wielokrotnym wychodzeniu do menu i dodawaniu kolejnych kontaktÃ³w. 
+
+Czekam na ostrÄ… bure. 
+
+ğŸ”´ Problem nr 1 - init_active() jest bÅ‚Ä™dne koncepcyjnie
+
+To jest najwaÅ¼niejsza uwaga.
+Masz:
+C
+if (my_adressbook->contacts[i].active == true)
+{
+continue;
+}
+else
+{
+my_adressbook->contacts[i].active = false;
+}
+Pytanie:
+SkÄ…d wiesz, Å¼e:
+C
+contacts[i].active
+zawiera poprawnÄ… wartoÅ›Ä‡ przed pierwszym odczytem?
+Nie wiesz.
+To jest nadal pamiÄ™Ä‡ po malloc().
+Czyli:
+C
+if(active == true)
+wykonujesz na niezainicjalizowanej pamiÄ™ci.
+To jest dokÅ‚adnie to, czego prÃ³bowaÅ‚eÅ› uniknÄ…Ä‡.
+
+Problem 1.
+Wniosek jest taki, Å¼e powinienem, wykonywaÄ‡ inicjalizacjÄ™ active po malloc() i realloc() - pomiedzy size a capacity;
+dla malloc:
+warunek jest
+i = size; i<capacity, i++,
+i=0; i< 2, i++;
+active = false
+bez sprawdzania Å¼adnych warunkÃ³w
+dla realloc
+i =size; i< capacity, i++
+i = 2; i< 4, i++;
+active = false
+bez sprawdzania Å¼adnych warunkÃ³w
+Czy to bÄ™dzie koncepcyjne ok ? 
+Odpowiedz tylko na to pytanie. 
+
+Problem nr 2 - active zaczyna walczyÄ‡ z size - active wykorzytuje obecnie w jednym warunku podczas pÄ™tli while(), jednak kod dziÄ™ki wskazÃ³wkÄ… jest tak napisany, Å¼e nie powinno to byÄ‡ problemem.
+Na obecnÄ… chwilÄ™ niech tak zostanie, zastanowie siÄ™ po ukoÅ„czeniu wszystkich funkcji obsÅ‚ugujÄ…cych struktury - czy jest potrzebne, czy moÅ¼na to zamieniÄ‡.
+Problem nr 3 - duplikacja kodu - DONE dodatkowa funkcja: more_contacts()
+Problem nr 4 - dysponuje tylko tÄ… zmiennÄ…, podpowiedÅº coÅ›. 
+Pliki w zaÅ‚Ä…czniku.
+Odpowiedz tylko na te pytania. 
+
+Przy implementacji delete_contact() nie zaczynaj od kodowania.
+
+WeÅº kartkÄ™ i odpowiedz sobie najpierw na trzy pytania:
+
+1.	Co ma staÄ‡ siÄ™ z size po usuniÄ™ciu kontaktu?
+2.	Czy ID majÄ… byÄ‡ ponownie numerowane?
+3.	Czy kontakt ma zostaÄ‡ fizycznie usuniÄ™ty z tablicy, czy tylko oznaczony jako nieaktywny?
+
+1. Po usuniÄ™ciu kontaktu, zdrowy rozsÄ…dek nakazuje zmniejszyÄ‡ size o 1. I to wÅ‚asciwa droga, 
+
+MoÅ¼e inaczej krÃ³tki przebieg funkcji delete_struct():
+warunki size = 2, capacity = 4, 
+1. uÅ¼ytkownik wywoÅ‚uje z menu opcje nr 3 (opcja jako case 3),
+2. wyÅ›wietlam listÄ™ dostÄ™pnych konatktÃ³w = 2,
+3. uÅ¼utkownik wybiera numer ID kontaktu do usuniÄ™cia, 
+	delete ID = 1,
+4. co robi funkcja active[1] = false, size -= 1, co z pozostaÅ‚ymi danymi tablic Å‚aÅ„cuchowych? --< przydatna bÄ™dzie funckja memset().
+5. caÅ‚a delete_struct jest w pÄ™tli i zadaje pytanie czy usuwamy kolejny?
+	jeÅ¼eli nie - wychodze do menu gÅ‚Ã³wnego,
+	jeÅ¼eli tak - ponownie wyÅ›wietlam listÄ™ kontaktÃ³w i tu konieczna jest modyfikacji view_struct o warunek active == true, w przeciwnym wypadku wyÅ›wiele 
+	kontakt juÅ¼ usuniÄ™ty ? Albo co gorsza ze wzglÄ™du na budowÄ™ petli  w funkcji view wyÅ›wietlÄ™ konatkt usuniÄ™ty a kontakt wprowadzony bÄ™dzie nie widoczny
+	ze wzglÄ™du na zmniejszony parametr size, 
+	Tu rozwiÄ…zaniem jest, aby uniknÄ…Ä‡ tego problemu muszÄ™ przenieÅ›Ä‡ zawartoÅ›Ä‡ struktury z ID 2 na ID 1. WÃ³wczas obsÅ‚uga size stanie siÄ™ Å‚atwiejsza, brak koniecznoÅ›ci zmiany view_struct,
+	koniecznie jednak bÄ™dÄ™ musiaÅ‚ active[2] w tym wypadku zmieniÄ‡ na false, aby funckja complete struct mogÅ‚a prawidÅ‚owo dodaÄ‡ nowy kontakt. 
+
+JeÅ¼eli na coÅ› zwrÃ³ciÄ‡ uwagÄ™ daj znaÄ‡. 
+
+OdpowiadajÄ…c
+1. size powinno zostaÄ‡ pomniejszone o usuniÄ™tÄ… iloÅ›Ä‡ kontaktÃ³w,
+2. ID pozostajÄ…, usuniÄ™ty kontakt ze "Å›rodka", zostanie wypeÅ‚niony kontaktem znajdujÄ…cym siÄ™ poniÅ¼ej i tak do przesuniÄ™cia wszytskich o jeden w gÃ³rÄ™. 
+3. kontakt zostanie nadpisany kontaktem znajdujÄ…cym sie poniÅ¼ej 
+
+Rozmawiajmy tylko o usuwaniu kontaktÃ³w. 
+
+z zaÅ‚oÅ¼enia jednak nie dÄ…Å¼e do zmian ID tzn.
+
+ID 1 Patryk
+ID 2 Maciek
+ID 3 Konrad
+usuwam ID 2
+chciaÅ‚bym w wyniku:
+ID 1 Patryk
+ID 2 Konrad
+powystrzelane ID bÄ™dÄ… Åºle wyglÄ…daÅ‚y, usuwanie ok przorzÄ…dek i wyglÄ…d dla uÅ¼ytkownika teÅ¼ jest waÅ¼ny. 
+
+Czy podczas przesuwania kopiujÄ™ caÅ‚e struktury Contact, czy aktualizujÄ™ kaÅ¼de pole osobno?
+Ze wzglÄ™du na prostotÄ™ uÅ¼ycia funckji memcpy_s, kopiowaÅ‚em caÅ‚e struktury. WiÄ…zaÅ‚o to tylko ze sobÄ… rÃ³wnieÅ¼ kopiowanie wartoÅ›ci ID.
+Jedank na koniec pÄ™tli kopiujÄ…cej dodaÅ‚em pÄ™tle "poprawiajÄ…cÄ…" kolejnoÅ›Ä‡ ID kontatkÃ³w. 
+Moja funkcja delete_contact jest gotowa. 
+Przetestowane w debugerze. Podczas usuwania ostaniej pozycji w liscie dynamicznej pÄ™tla nie speÅ‚nia warunku,
+nie wykonuje Å¼adnego dziaÅ‚a, poprostu przez zmianÄ™ size - program nie bierze tych wartoÅ›ci pod uwagÄ™.
+Dodaje pliki, czekam na review. 
+
+
+Jedyny potencjalnie niebezpieczny fragment
+Tak wprowadziÅ‚em instrukjce if - else. nie ma moÅ¼liwoÅ›ci usuwania kontaktÃ³w, jeÅ¼eli nie byÅ‚a
+wywoÅ‚ana funckja init_strcut oraz na wypadek usuniÄ™cia wszystkich kontaktÃ³w:
+	if (my_addressbook != NULL && my_addressbook->size > 0)
+ByÅ‚a informacja, Å¼e nie ma Å¼adnych kontaktÃ³w z funkcji view_struct, jednak program pozwaÅ‚am na
+przyjÄ™cie ID do usuniÄ™cia - naprawiono. 
+
+Czy istnieje prostsza operacja przypisania caÅ‚ej struktury?
+Tak za pomocÄ… operatora przypisania: = 
+Ale uznaÅ‚em, Å¼e forma, oraz czytelnoÅ›Ä‡ kodu jest znacznie lepsza przy memcpy_s()
+W przypadku tak iloÅ›ci danych nie ma to wpÅ‚ywu. Mam racje ? 
+

@@ -71,6 +71,11 @@ char* read_string(char* Tablica, int T_Size);
 AddressBook *init_struct();
 
 /*
+	Initializes the variable my_adressbook->contatc->active to false value.
+*/
+void init_active(AddressBook* my_adressbook);
+
+/*
 	Frees the memory of initialized pointers.
 */
 void cleanup_struct(AddressBook *my_adressbook);
@@ -85,3 +90,18 @@ void complete_struct(AddressBook *my_adressbook);
 	Function displays the contact structure. Includes a safegurad against an empty structure.
 */
 void view_struct(const AddressBook *my_adressbook);
+
+/*
+	The function allocates additional memory for the Contact structure.
+*/
+Contact *more_contacts(AddressBook* my_addressbook);
+
+/*
+	Deleting contact and moving rest. 
+*/
+void delete_contact(AddressBook* my_addressbook);
+
+/*
+	
+*/
+int check_id(AddressBook* my_addressbook);
