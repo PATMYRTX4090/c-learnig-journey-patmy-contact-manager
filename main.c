@@ -49,6 +49,7 @@ int main(void)
 			delete_contact(my_addressbook);
 			break;
 		case 4:
+			search_contacts(my_addressbook);
 			break;
 		default:
 			break;

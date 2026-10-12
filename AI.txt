@@ -409,3 +409,70 @@ Tak za pomocą operatora przypisania: =
 Ale uznałem, że forma, oraz czytelność kodu jest znacznie lepsza przy memcpy_s()
 W przypadku tak ilości danych nie ma to wpływu. Mam racje ? 
 
+Funckja search_contacts:
+1. użytkownik wywołuje funkcję w menu głównym - pozycja 4,
+2. Nie, nie wyświetlamy całej listy. 
+3. Jeżeli lista jest krótka - poszukiwania można wykonać w opcji 2 - view_contacts.
+4. Poszukuje gdy kontaktów jest dużo i zależy nam na trafieniach fraz.
+5. Zatem poszukiwać możemy po: name, last name, company, phone number, address email,
+6. interackja z użytkownikiem:
+7. pytam użytkownika o poszukiwaną frazę - musi być pułapka odnoście długość frazy, bo jeżeli wproawdzi tylko np. literę 'a' ilość trafień będzie zdumiewająca...
+8. pytam gdzie szukać, czy lepiej szukać "wszędzie" ?,
+9. wyniki zapisuje w dynamicznej tablicy int, którą w zależności od potrzeb powiększam. powiedzmy na start sizeof(int) * 10;
+10. z pewnością trafią się powtórzenia, które będą w tablicy, konieczne będzie oczyszczenie tablicy,
+11 prezentacja wyników.
+
+Jest to zamysł, bez linijki kodu. 
+
+Jakiego rodzaju wyszukiwanie chcesz mieć?
+Wariant A
+
+Szukam:
+
+Plain Text
+pat
+
+Znajduję:
+
+Plain Text
+Patryk
+Wariant B
+
+Szukam:
+
+Plain Text
+pat
+
+Znajduję:
+
+Plain Text
+Patryk
+Patrycja
+
+bo szukasz fragmentu tekstu.
+
+To jest pierwsza decyzja, którą bym podjął przed napisaniem choćby jednej linijki kodu wyszukiwania. 😊
+
+Rozmawiamy tylko o pytaniu mentorskim: Jakiego rodzaju wyszukiwanie chcesz mieć?
+Po przeprowadzeniu researchu, jedyna możliwość jaka wchodzi w grę to funkcja strstr() ze standardowej biblioteki string.h
+Jednak, testy wykazały wrażliwość na wielkość liter, aby rozwiązać ten problem myślę o zmianię liter we frazie wyszukiwanej oraz 
+elemencie przeszukiwanym w struktorze Contact na takie same (małe lub wielkie).
+Jeżeli wyszukiwanie kończy się sukcesem otrzymuje wskaźnik - z pomocą instrukcji if, else - jestem wstanie go wykorzystać do zbierania danych, oczywiście nie wskaźnika. 
+Jest opcja funkcji strcasestr() ale nie jest dostępna w msvc tylko w GNU. 
+shlwapi.h - natomiast daje funkcję StrStrIA - ale pojawia się nowy typ PSTR. 
+
+Punkt 9 i 10
+
+Rozmawiamy tylko o pytaniu mentorskim: Dlaczego indeks kontaktu miałby trafić do wyników dwa razy?
+W przypadku wyszukiwania po jednym elemencie struktury faktycznie będzie jedno trafienie.
+Jednak w przypadku wyszukiwania całości, tu mniemam, że jedno przejście pętli "uderzy" w cały rekord struktury.
+Mam przykładowy rekord: 
+
+Patryk | Myslewski | 123 456 789 | patrykmyslewski@outlook.com | PAT-COMP|
+Jeżeli wyszukam, po frazie PAT, to w jednym rekordzie ma 3 trafienia w: name, email, company. 
+A więc defacto bez prawidłowo zaimplentowanej funkcji trzy razy ta sama wartość 'i' z notacji tablicowej trafin do tablicy int.
+Z tąd też się wzieło moje przekonanie i powtarzaniu. 
+
+Czy chcę projektować funkcję wyszukiwania pod "trafienia", czy pod "znalezione kontakty"?
+Oczywiście pod znalelzione kontakty. Zatem słusznie odnalezienie powinno być warunkiem granicznym powodującym przerwanie. 
+Mniej pracy a efekt będzie ten.

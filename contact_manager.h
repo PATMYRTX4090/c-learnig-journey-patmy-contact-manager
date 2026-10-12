@@ -1,10 +1,13 @@
 #pragma once
 
+#define _GNU_SOURCE
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <stdbool.h>
 #include <Windows.h>
+#include <Shlwapi.h>
 
 #define MAX_PHONE 16
 #define MAX_NAME 32
@@ -102,6 +105,9 @@ Contact *more_contacts(AddressBook* my_addressbook);
 void delete_contact(AddressBook* my_addressbook);
 
 /*
-	
+	Function that assists in determing the correct ID contact.
 */
 int check_id(AddressBook* my_addressbook);
+
+
+void search_contacts(AddressBook* my_addressbook);

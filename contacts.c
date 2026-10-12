@@ -85,13 +85,10 @@ AddressBook* init_struct()
 
 void init_active(AddressBook* my_adressbook)
 {
-	int j = 0;
 	for (int i = my_adressbook->size; i < my_adressbook->capacity; i++)
 	{
 		my_adressbook->contacts[i].active = false;
-		j++;
 	}
-	printf("Count of my_adressbook->contacts[i].active = false: %d\n", j);
 }
 
 void cleanup_struct(AddressBook *my_addressbook)
@@ -135,8 +132,10 @@ void complete_struct(AddressBook *my_addressbook)
 		read_string(wsk_current_contacts->company, MAX_NAME);
 		wsk_current_contacts->active = true;
 		printf("Contact have been activated !\n");
-		printf("Do You want to add more contatcs ?\n");
-		printf("Y - YES | N - NO \n");
+		printf("+-------------------------------------+\n");
+		printf("| Do You want to add more contatcs ?  |\n");
+		printf("|      Y - YES | N - NO               |\n");
+		printf("+-------------------------------------+\n");
 		if ((ask = get_letter()) == 'Y')
 		{
 			if (my_addressbook->size == my_addressbook->capacity)
@@ -181,7 +180,7 @@ void view_struct(const AddressBook *my_addressbook)
 			printf("|%3d|%-20s|%-30s|%-20s|%-44s|%-26s|\n", my_addressbook->contacts[i].ID, my_addressbook->contacts[i].name, my_addressbook->contacts[i].last_name, my_addressbook->contacts[i].phone_number, my_addressbook->contacts[i].email_address, my_addressbook->contacts[i].company);
 			printf("+---+--------------------+------------------------------+--------------------+--------------------------------------------+--------------------------+\n");
 		}
-		printf("%s\n", my_addressbook->file_name);
+		printf("ADDRESS BOOK FILE NAME: %s\n", my_addressbook->file_name);
 	}
 }
 
@@ -193,15 +192,15 @@ Contact *more_contacts(AddressBook* my_addressbook)
 	if (ptr_temp == NULL)
 	{
 		printf("Error with realloc() !\n");
-		return my_addressbook->contacts;
 		Sleep(TIME_SLEEP);
+		return my_addressbook->contacts;
 	}
 	else
 	{
 		my_addressbook->contacts = ptr_temp;
 		init_active(my_addressbook);
-		return my_addressbook->contacts;
 		Sleep(TIME_SLEEP);
+		return my_addressbook->contacts;
 	}
 }
 
@@ -218,7 +217,7 @@ void delete_contact(AddressBook* my_addressbook)
 		{
 			printf("To delelete contact, enter a ID number:\n");
 			id_delete = check_id(my_addressbook);
-			printf("+---+--------------------+------------------------------+--------------------   +--------------------------------------------+--------------------------+\n");
+			printf("+---+--------------------+------------------------------+--------------------+--------------------------------------------+--------------------------+\n");
 			printf("|%3d|%-20s|%-30s|%-20s|%-44s|%-26s|\n", 
 				my_addressbook->contacts[id_delete - 1].ID,	
 				my_addressbook->contacts[id_delete - 1].name, 
@@ -226,7 +225,7 @@ void delete_contact(AddressBook* my_addressbook)
 				my_addressbook->contacts[id_delete - 1].phone_number, 
 				my_addressbook->contacts[id_delete - 1].email_address, 
 				my_addressbook->contacts[id_delete - 1].company);
-			printf("+---+--------------------+------------------------------+--------------------   +--------------------------------------------+--------------------------+\n");
+			printf("+---+--------------------+------------------------------+--------------------+--------------------------------------------+--------------------------+\n");
 			for (int i = (id_delete - 1); i < my_addressbook->size - 1; i++)
 			{
 				memcpy_s(&my_addressbook->contacts[i], sizeof(Contact), &my_addressbook->contacts[i +	1], sizeof(Contact));
@@ -237,16 +236,27 @@ void delete_contact(AddressBook* my_addressbook)
 			{
 				my_addressbook->contacts[i].ID = j;
 			}
-			view_struct(my_addressbook);
-			printf("Do You want to delete another contact ?\n");
-			printf("Y - YES | N - NO \n");
-			char ask;
-			if ((ask = get_letter()) == 'Y')
+			if (my_addressbook->size > 0)
 			{
-				delete = true;
+				view_struct(my_addressbook);
+				printf("+-----------------------------------------------+\n");
+				printf("| Do You want to delete another contact ?       |\n");
+				printf("| Y - YES | N - NO                              |\n");
+				printf("+-----------------------------------------------+\n");
+				char ask;
+				if ((ask = get_letter()) == 'Y')
+				{
+					delete = true;
+				}
+				else
+				{
+					delete = false;
+				}
 			}
-			else
+			else if (my_addressbook->size == 0)
 			{
+				printf("Address Book is empty!\n");
+				printf("Returning to Main Menu.\n");
 				delete = false;
 			}
 		}
@@ -279,3 +289,30 @@ int check_id(AddressBook *my_addressbook)
 	}
 	return id_delete;
 }
+
+void search_contacts(AddressBook* my_addressbook)
+{
+	char* tab_przeszukiwany_1 = "Patryk";
+	char* tab_przeszukiwany_2 = "Myslewski";
+	char* tab_poszukiwany = "at";
+	
+	char* test_1;
+	char* test_2;
+	if ((test_1 = strstr(tab_przeszukiwany_1, tab_poszukiwany)) != NULL)
+	{
+		printf("Znaleziono wystapenie!\n");
+	}
+	else
+	{
+		printf("Brak!\n");
+	}
+	if ((test_2 = strstr(tab_przeszukiwany_2, tab_poszukiwany)) != NULL)
+	{
+		printf("Znaleziono wystapenie!\n");
+	}
+	else
+	{
+		printf("Brak!\n");
+	}
+}
+
