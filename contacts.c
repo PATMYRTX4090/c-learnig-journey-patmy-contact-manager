@@ -136,6 +136,7 @@ void complete_struct(AddressBook *my_addressbook)
 		printf("| Do You want to add more contatcs ?  |\n");
 		printf("|      Y - YES | N - NO               |\n");
 		printf("+-------------------------------------+\n");
+		ASKING;
 		if ((ask = get_letter()) == 'Y')
 		{
 			if (my_addressbook->size == my_addressbook->capacity)
@@ -208,14 +209,17 @@ void delete_contact(AddressBook* my_addressbook)
 {
 	if (my_addressbook != NULL && my_addressbook->size > 0)
 	{
-		printf("List of avaible contats:\n");
+		printf("+----------------------------+\n");
+		printf("|  List of avaible contats:  |\n");
+		printf("+----------------------------+\n");
 		view_struct(my_addressbook);
 		bool delete = true;
 		//bool check = true;
 		int id_delete;
 		while (delete)
 		{
-			printf("To delelete contact, enter a ID number:\n");
+			printf("To delelete contact, enter a ID number.\n");
+			ASKING;
 			id_delete = check_id(my_addressbook);
 			printf("+---+--------------------+------------------------------+--------------------+--------------------------------------------+--------------------------+\n");
 			printf("|%3d|%-20s|%-30s|%-20s|%-44s|%-26s|\n", 
@@ -241,8 +245,9 @@ void delete_contact(AddressBook* my_addressbook)
 				view_struct(my_addressbook);
 				printf("+-----------------------------------------------+\n");
 				printf("| Do You want to delete another contact ?       |\n");
-				printf("| Y - YES | N - NO                              |\n");
+				printf("|            Y - YES | N - NO                   |\n");
 				printf("+-----------------------------------------------+\n");
+				ASKING;
 				char ask;
 				if ((ask = get_letter()) == 'Y')
 				{
@@ -292,27 +297,88 @@ int check_id(AddressBook *my_addressbook)
 
 void search_contacts(AddressBook* my_addressbook)
 {
-	char* tab_przeszukiwany_1 = "Patryk";
-	char* tab_przeszukiwany_2 = "Myslewski";
-	char* tab_poszukiwany = "at";
-	
-	char* test_1;
-	char* test_2;
-	if ((test_1 = strstr(tab_przeszukiwany_1, tab_poszukiwany)) != NULL)
+	bool still_searching = true;
+	while (still_searching)
 	{
-		printf("Znaleziono wystapenie!\n");
+		printf("+------------------------------------------------+\n");
+		printf("| +--------------------------------------------+ |\n");
+		printf("| |     Search in Adress Book                  | |\n");
+		printf("| |     Available options below:               | |\n");
+		printf("| |                                            | |\n");
+		printf("| |     1. Search by all                       | |\n");
+		printf("| |     2. Search by name                      | |\n");
+		printf("| |     3. Search by last name                 | |\n");
+		printf("| |     4. Search by phone number              | |\n");
+		printf("| |     5. Search by email address             | |\n");
+		printf("| |     6. Search by company                   | |\n");
+		printf("| |     0. Exit                                | |\n");
+		printf("| +--------------------------------------------+ |\n");
+		printf("+------------------------------------------------+\n");
+		ASKING;
+		int search_by = taking_number();
+		switch (search_by)
+		{
+		case 0:
+			printf("I am leaving the search options.\n");
+			printf("Returning to Main Menu.\n");
+			Sleep(TIME_SLEEP);
+			still_searching = false;
+			break;
+		case 1:
+			break;
+		case 2:
+			search_by_name(my_addressbook);
+			break;
+		case 3:
+			break;
+		case 4:
+			break;
+		case 5:
+			break;
+		case 6:
+			break;
+		default:
+			printf("Please chose right option!\n");
+			break;
+		}
+	}
+}
+
+void search_by_name(AddressBook* my_addressbook)
+{
+	int* scoreboard = NULL;
+	char strSearch[MAX_NAME];
+	if (my_addressbook != NULL && my_addressbook->size > 0)
+	{
+		scoreboard = (int*)malloc(sizeof(int) * my_addressbook->size);
+		if (scoreboard == NULL)
+		{
+			printf("Error with malloc!\n");
+			printf("Returning to Search Menu.\n");
+			Sleep(TIME_SLEEP);
+		}
+		else
+		{
+			printf("\n");
+			printf("Add string, that You want to search for: \n");
+			read_string(strSearch, MAX_NAME);
+			for (int i = 0, j = 0; i < my_addressbook->size - 1; i++)
+			{
+				if (strstr(my_addressbook->contacts[i].name, strSearch))
+				{
+					*(scoreboard + j) = i;
+					j++;
+				}	
+			}
+		}
 	}
 	else
 	{
-		printf("Brak!\n");
+		printf("No contacts available.\n");
+		printf("There is nothing to search.\n");
+		printf("Returning to Search Menu.\n");
+		Sleep(TIME_SLEEP);
 	}
-	if ((test_2 = strstr(tab_przeszukiwany_2, tab_poszukiwany)) != NULL)
-	{
-		printf("Znaleziono wystapenie!\n");
-	}
-	else
-	{
-		printf("Brak!\n");
-	}
+	free(scoreboard);
 }
 

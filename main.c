@@ -10,15 +10,23 @@ int main(void)
 	AddressBook *my_addressbook = NULL;
 	while (working)
 	{
-		printf("+--------------------------------------------+\n");
-		printf("|     Welcome to the Address Book !          |\n");
-		printf("|     Available options below:               |\n");
-		printf("|                                            |\n");
-		printf("|     1. Add contact                         |\n");
-		printf("|     2. View contacts                       |\n");
-		printf("|     3. Delete contacts                     |\n");
-		printf("|     0. Exit                                |\n");
-		printf("+--------------------------------------------+\n");
+		printf("+---------------------------------------------------+\n");
+		printf("| +-----------------------------------------------+ |\n");
+		printf("| | +-------------------------------------------+ | |\n");
+		printf("| | |     Welcome to the Address Book !         | | |\n");
+		printf("| | |     Available options below:              | | |\n");
+		printf("| | |                                           | | |\n");
+		printf("| | |     1. Add contact                        | | |\n");
+		printf("| | |     2. View contacts                      | | |\n");
+		printf("| | |     3. Delete contacts                    | | |\n");
+		printf("| | |     4. Search contacts                    | | |\n");
+		printf("| | |     5.                                    | | |\n");
+		printf("| | |     6.                                    | | |\n");
+		printf("| | |     0. Exit                               | | |\n");
+		printf("| | +-------------------------------------------+ | |\n");
+		printf("| +-----------------------------------------------+ |\n");
+		printf("+---------------------------------------------------+\n");
+		ASKING;
 		int options = taking_number();
 		switch (options)
 		{
@@ -51,7 +59,12 @@ int main(void)
 		case 4:
 			search_contacts(my_addressbook);
 			break;
+		case 5:
+			break;
+		case 6:
+			break;
 		default:
+			WRONG;
 			break;
 		}
 	}

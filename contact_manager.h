@@ -1,13 +1,13 @@
 #pragma once
 
-#define _GNU_SOURCE
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <stdbool.h>
 #include <Windows.h>
-#include <Shlwapi.h>
+
+#define ASKING printf("Your choose: ")
+#define WRONG printf("Wrong choice !")
 
 #define MAX_PHONE 16
 #define MAX_NAME 32
@@ -111,3 +111,5 @@ int check_id(AddressBook* my_addressbook);
 
 
 void search_contacts(AddressBook* my_addressbook);
+
+void search_by_name(AddressBook* my_addressbook);
