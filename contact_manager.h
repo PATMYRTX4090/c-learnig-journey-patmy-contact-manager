@@ -5,9 +5,16 @@
 #include <string.h>
 #include <stdbool.h>
 #include <Windows.h>
+#include <ctype.h>
+
 
 #define ASKING printf("Your choose: ")
 #define WRONG printf("Wrong choice !")
+#define TRY printf("Try again...")
+#define NEW_LINE printf("\n")
+
+#define YES 'Y'
+#define NO 'N'
 
 #define MAX_PHONE 16
 #define MAX_NAME 32
@@ -47,6 +54,15 @@ typedef struct
 	bool is_modifed;
 }AddressBook;
 #endif // !ADRESSBOOK_H
+
+typedef enum 
+{
+	SEARCH_NAME,
+	SEARCH_LAST_NAME,
+	SEARCH_PHONE_NUMEBER,
+	SEARCH_EMAIL_ADDRESS,
+	SEARCH_COMPANY
+}Enum_Struct_Fields;
 
 /*
 	Removing unwanted characters from stdin.
@@ -109,7 +125,27 @@ void delete_contact(AddressBook* my_addressbook);
 */
 int check_id(AddressBook* my_addressbook);
 
-
+/*
+	Main menu for search function in contacts.
+*/
 void search_contacts(AddressBook* my_addressbook);
 
-void search_by_name(AddressBook* my_addressbook);
+/*
+	Complements the search functions.
+*/
+char ask_letter_case(void);
+
+/*
+	Searches by name.
+*/
+void search_by_name(AddressBook* my_addressbook, char letter_case);
+
+/*
+	
+*/
+void view_result_struct(const AddressBook* my_addressbook, int* ScoreBoard, int SizeScoreBoard);
+
+
+void search_by_Contacts(AddressBook* my_addressbook, int field_number, char letter_case);
+
+char* selecting_right_field(AddressBook* my_addressbook, int field_number, int i);
