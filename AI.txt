@@ -476,3 +476,54 @@ Z tąd też się wzieło moje przekonanie i powtarzaniu.
 Czy chcę projektować funkcję wyszukiwania pod "trafienia", czy pod "znalezione kontakty"?
 Oczywiście pod znalelzione kontakty. Zatem słusznie odnalezienie powinno być warunkiem granicznym powodującym przerwanie. 
 Mniej pracy a efekt będzie ten.
+
+
+13.10.2026
+A więc, na obecną chwilę przygotowano następujące funkcje:
+search_contacts - glowna funckja z main menu opcji wyszukiwania,
+search_by_name - funkcja wyszukująca po 'name', testy w fazie alfa, wstepnie obiecujące.
+ask_letter_case - daje użytkownikowi możliwość zadecydowania, czy wielkość liter ma znaczenie,
+view_result_struct - niestety ale ze względu na budowę funkcji view_struct nie mogłem jej wykorzystać - warunki graniczne pętli for.
+Ogólnie do projektu dodanego kilka usprawnień mających ułatwić czytelność tego co pojawia się w konsoli.
+Pliki z załączniku, prośba o review tych czterech funkcji i przebiegu.
+
+Dlaczego:
+
+C
+size - 1 - jest to błąd i nie debugowałem tej części więc ukrył się przed ujawnieniem.
+for (int i = 0, SizeScoreBoard = 0; ...) --> jak wyżej, 
+
+
+Natomiast już teraz widzę przyszłość:
+
+C
+search_by_name()
+search_by_last_name()
+search_by_company()
+search_by_email()
+
+Prawdopodobnie będą bardzo podobne.
+
+Nie musisz tego teraz zmieniać, ale za jakiś czas możesz dojść do pomysłu:
+
+"Mam 5 niemal identycznych funkcji."
+
+To będzie ciekawy moment refaktoryzacji. 😎
+
+Właśnie dziś solidnie zastanawiałem się nad tym problemem. 
+my_addressbook->contacts[i].name[k]
+Te funkcje, nie będą się od siebie róźniły oprócz parametru, będącym clue, który nstęuje po kropce w contacts[x].ZMIENIANA WARTOŚĆ.
+Może by tak zastosować tablicę wskaźników. 
+Pytam od razu, po co robić coś co i tak będę powtarzał. Jedna z zasad lean managment. 
+Czy tablica wskaźników to dobra droga ? 
+Rozmawiamy tylko o tym problemie. 
+
+Co w tych funkcjach jest identyczne, a co jest jedyną zmienną?
+Cały program od początku do samego końca będzie identyczny różnica jest w contacts[x] i nazwie pola struktury. 
+Więc muszę przez te dwie zmiennie móć poruszać się. contacts dla rekordu, nazwa pola dla zmiany wielkości litery. 
+Rozmawiamy tylko to tym problemie. 
+
+
+COPILOT + stackoverflow
+zaoowocowało funkcją: Search_by_Contacts()
+https://stackoverflow.com/questions/59503102/how-to-pass-structure-field-name-to-function

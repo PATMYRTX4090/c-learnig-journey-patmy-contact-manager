@@ -100,7 +100,7 @@ void cleanup_struct(AddressBook *my_addressbook)
 	printf("Deallocation: \n");
 	printf("my_addressbook->contacts,\n");
 	printf("my_addressbook\n");
-	printf("complete.\n");
+	printf("Done.\n");
 	Sleep(TIME_SLEEP);
 }
 
@@ -297,88 +297,282 @@ int check_id(AddressBook *my_addressbook)
 
 void search_contacts(AddressBook* my_addressbook)
 {
-	bool still_searching = true;
-	while (still_searching)
-	{
-		printf("+------------------------------------------------+\n");
-		printf("| +--------------------------------------------+ |\n");
-		printf("| |     Search in Adress Book                  | |\n");
-		printf("| |     Available options below:               | |\n");
-		printf("| |                                            | |\n");
-		printf("| |     1. Search by all                       | |\n");
-		printf("| |     2. Search by name                      | |\n");
-		printf("| |     3. Search by last name                 | |\n");
-		printf("| |     4. Search by phone number              | |\n");
-		printf("| |     5. Search by email address             | |\n");
-		printf("| |     6. Search by company                   | |\n");
-		printf("| |     0. Exit                                | |\n");
-		printf("| +--------------------------------------------+ |\n");
-		printf("+------------------------------------------------+\n");
-		ASKING;
-		int search_by = taking_number();
-		switch (search_by)
-		{
-		case 0:
-			printf("I am leaving the search options.\n");
-			printf("Returning to Main Menu.\n");
-			Sleep(TIME_SLEEP);
-			still_searching = false;
-			break;
-		case 1:
-			break;
-		case 2:
-			search_by_name(my_addressbook);
-			break;
-		case 3:
-			break;
-		case 4:
-			break;
-		case 5:
-			break;
-		case 6:
-			break;
-		default:
-			printf("Please chose right option!\n");
-			break;
-		}
-	}
-}
-
-void search_by_name(AddressBook* my_addressbook)
-{
-	int* scoreboard = NULL;
-	char strSearch[MAX_NAME];
 	if (my_addressbook != NULL && my_addressbook->size > 0)
 	{
-		scoreboard = (int*)malloc(sizeof(int) * my_addressbook->size);
-		if (scoreboard == NULL)
+		bool still_searching = true;
+		while (still_searching)
 		{
-			printf("Error with malloc!\n");
-			printf("Returning to Search Menu.\n");
-			Sleep(TIME_SLEEP);
-		}
-		else
-		{
-			printf("\n");
-			printf("Add string, that You want to search for: \n");
-			read_string(strSearch, MAX_NAME);
-			for (int i = 0, j = 0; i < my_addressbook->size - 1; i++)
+			printf("+------------------------------------------------+\n");
+			printf("| +--------------------------------------------+ |\n");
+			printf("| |     Search in Adress Book                  | |\n");
+			printf("| |     Available options below:               | |\n");
+			printf("| |                                            | |\n");
+			printf("| |     1. Search by all                       | |\n");
+			printf("| |     2. Search by name                      | |\n");
+			printf("| |     3. Search by last name                 | |\n");
+			printf("| |     4. Search by phone number              | |\n");
+			printf("| |     5. Search by email address             | |\n");
+			printf("| |     6. Search by company                   | |\n");
+			printf("| |     0. Exit                                | |\n");
+			printf("| +--------------------------------------------+ |\n");
+			printf("+------------------------------------------------+\n");
+			ASKING;
+			int search_by = taking_number();
+			switch (search_by)
 			{
-				if (strstr(my_addressbook->contacts[i].name, strSearch))
-				{
-					*(scoreboard + j) = i;
-					j++;
-				}	
+			case 0:
+				printf("+--------------------------------------+\n");
+				printf("|  I am leaving the search options.    |\n");
+				printf("|  Returning to Main Menu.             |\n");
+				printf("+--------------------------------------+\n");
+				Sleep(TIME_SLEEP);
+				still_searching = false;
+				break;
+			case 1:
+				
+				break;
+			case 2:
+				search_by_Contacts(my_addressbook, 0, ask_letter_case());
+				break;
+			case 3:
+				search_by_Contacts(my_addressbook, 1, ask_letter_case());
+				break;
+			case 4:
+				search_by_Contacts(my_addressbook, 2, ask_letter_case());
+				break;
+			case 5:
+				search_by_Contacts(my_addressbook, 3, ask_letter_case());
+				break;
+			case 6:
+				search_by_Contacts(my_addressbook, 4, ask_letter_case());
+				break;
+			default:
+				printf("+--------------------------------------+\n");
+				printf("|    Please chose right option!        |\n");
+				printf("+--------------------------------------+\n");
+				break;
 			}
 		}
 	}
 	else
 	{
-		printf("No contacts available.\n");
-		printf("There is nothing to search.\n");
-		printf("Returning to Search Menu.\n");
+		printf("+-------------------------------------+\n");
+		printf("|    No contacts available.           |\n");
+		printf("|    There is nothing to search.      |\n");
+		printf("|    Returning to Main Menu.          |\n");
+		printf("+-------------------------------------+\n");
 		Sleep(TIME_SLEEP);
 	}
-	free(scoreboard);
 }
 
+char ask_letter_case(void)
+{
+	printf("+-----------------------------------+\n");
+	printf("|  Should capitalization matter ?   |\n");
+	printf("|        Y - YES | N - NO           |\n");
+	printf("+-----------------------------------+\n");
+	char ask;
+	bool loop_me = true;
+	while (loop_me)
+	{
+		if ((ask = get_letter()) == 'Y' || ask == 'N')
+		{
+			loop_me = false;
+		}
+		else
+		{
+			WRONG;
+			NEW_LINE;
+			TRY;
+			NEW_LINE;
+			ASKING;
+		}
+	}
+	return ask;
+}
+
+void search_by_name(AddressBook* my_addressbook, char letter_case)
+{
+	int* ScoreBoard = NULL;
+	char strSearch[MAX_NAME];
+	int SizeScoreBoard = 0;
+	ScoreBoard = (int*)malloc(sizeof(int) * my_addressbook->size);
+	if (ScoreBoard == NULL)
+	{
+		printf("+--------------------------------------+\n");
+		printf("|    Error with malloc!                |\n");
+		printf("|    Returning to Search Menu.         |\n");
+		printf("+--------------------------------------+\n");
+		Sleep(TIME_SLEEP);
+	}
+	else
+	{
+		printf("+-----------------------------------------------+\n");
+		printf("|    Add string, that You want to search for:   |\n");
+		printf("+-----------------------------------------------+\n");
+		read_string(strSearch, MAX_NAME);
+		if (letter_case == NO)
+		{
+			char* UpperStrSearch = (char*)malloc(sizeof(char) * (strlen(strSearch) + 1));
+			char UpperContactName[MAX_NAME] = {'\0'};
+			if (UpperStrSearch == NULL)
+			{
+				printf("+--------------------------------------+\n");
+				printf("|    Error with malloc!                |\n");
+				printf("|    Returning to Search Menu.         |\n");
+				printf("+--------------------------------------+\n");
+				Sleep(TIME_SLEEP);
+				exit(EXIT_FAILURE);
+			}
+			else
+			{
+				for (int x = 0; x <= strlen(strSearch); x++)
+				{
+					UpperStrSearch[x] = toupper(*(strSearch + x));
+				}
+				for (int i = 0; i < my_addressbook->size; i++)
+				{
+					for (int k = 0; k < strlen(my_addressbook->contacts[i].name); k++)
+					{
+						UpperContactName[k] = toupper(my_addressbook->contacts[i].name[k]);
+					}
+					if (strstr(UpperContactName, UpperStrSearch))
+					{
+						*(ScoreBoard + SizeScoreBoard) = i;
+						SizeScoreBoard++;
+					}
+				}
+			}
+			free(UpperStrSearch);
+		}
+		else
+		{
+			for (int i = 0; i < my_addressbook->size; i++)
+			{
+				if (strstr(my_addressbook->contacts[i].name, strSearch))
+				{
+					*(ScoreBoard + SizeScoreBoard) = i;
+					SizeScoreBoard++;
+				}
+			}
+		}
+		view_result_struct(my_addressbook, ScoreBoard, SizeScoreBoard);
+	}
+	free(ScoreBoard);
+}
+
+void view_result_struct(const AddressBook* my_addressbook, int *ScoreBoard, int SizeScoreBoard)
+{
+	printf("LIST OF FOUND CONTACTS: %d\n", SizeScoreBoard);
+	printf("+---+--------------------+------------------------------+--------------------+--------------------------------------------+--------------------------+\n");
+	printf("|%3s|%-20s|%-30s|%-20s|%-44s|%-26s|\n", "ID ", "NAME", "LAST NAME", "PHONE NUMBER", "EMAIL ADRESS", "COMPANY");
+	printf("+---+--------------------+------------------------------+--------------------+--------------------------------------------+--------------------------+\n");
+	for (int i = 0; i < SizeScoreBoard; i++)
+	{
+		printf("|%3d|%-20s|%-30s|%-20s|%-44s|%-26s|\n", 
+			my_addressbook->contacts[*(ScoreBoard + i)].ID, 
+			my_addressbook->contacts[*(ScoreBoard + i)].name, 
+			my_addressbook->contacts[*(ScoreBoard + i)].last_name, 
+			my_addressbook->contacts[*(ScoreBoard + i)].phone_number, 
+			my_addressbook->contacts[*(ScoreBoard + i)].email_address, 
+			my_addressbook->contacts[*(ScoreBoard + i)].company);
+		printf("+---+--------------------+------------------------------+--------------------+--------------------------------------------+--------------------------+\n");
+	}
+}
+
+void search_by_Contacts(AddressBook *my_addressbook, int field_number, char letter_case)
+{
+	int SizeScoreBoard = 0;
+	int* ScoreBoard = NULL;
+	char* searched_structure_field = NULL;
+	char strSearch[MAX_NAME];
+	ScoreBoard = (int*)malloc(sizeof(int) * my_addressbook->size);
+	if (ScoreBoard == NULL)
+	{
+		printf("+--------------------------------------+\n");
+		printf("|    Error with malloc!                |\n");
+		printf("|    Returning to Search Menu.         |\n");
+		printf("+--------------------------------------+\n");
+		Sleep(TIME_SLEEP);
+	}
+	else
+	{
+		printf("+-----------------------------------------------+\n");
+		printf("|    Add string, that You want to search for:   |\n");
+		printf("+-----------------------------------------------+\n");
+		read_string(strSearch, MAX_NAME);
+		if (letter_case == NO)
+		{
+			char* UpperStrSearch = (char*)malloc(sizeof(char) * (strlen(strSearch) + 1));
+			char UpperContactName[MAX_NAME] = { '\0' };
+			if (UpperStrSearch == NULL)
+			{
+				printf("+--------------------------------------+\n");
+				printf("|    Error with malloc!                |\n");
+				printf("|    Returning to Search Menu.         |\n");
+				printf("+--------------------------------------+\n");
+				Sleep(TIME_SLEEP);
+				exit(EXIT_FAILURE);
+			}
+			else
+			{
+				for (int x = 0; x <= strlen(strSearch); x++)
+				{
+					UpperStrSearch[x] = toupper(*(strSearch + x));
+				}
+				for (int i = 0; i < my_addressbook->size; i++)
+				{
+					searched_structure_field = selecting_right_field(my_addressbook, field_number, i);
+					for (int k = 0; k < strlen(searched_structure_field); k++)
+					{
+						UpperContactName[k] = toupper(searched_structure_field[k]);
+					}
+					if (strstr(UpperContactName, UpperStrSearch))
+					{
+						*(ScoreBoard + SizeScoreBoard) = i;
+						SizeScoreBoard++;
+					}
+				}
+			}
+			free(UpperStrSearch);
+		}
+		else
+		{
+			for (int i = 0; i < my_addressbook->size; i++)
+			{
+				searched_structure_field = selecting_right_field(my_addressbook, field_number, i);
+				if (strstr(searched_structure_field, strSearch))
+				{
+					*(ScoreBoard + SizeScoreBoard) = i;
+					SizeScoreBoard++;
+				}
+			}
+		}
+		view_result_struct(my_addressbook, ScoreBoard, SizeScoreBoard);
+	}
+	free(ScoreBoard);
+}
+
+char* selecting_right_field(AddressBook* my_addressbook, int field_number, int i)
+{
+	char* ssf = NULL;
+	switch (field_number)
+	{
+	case SEARCH_NAME:
+		ssf = my_addressbook->contacts[i].name;
+		break;
+	case SEARCH_LAST_NAME:
+		ssf = my_addressbook->contacts[i].last_name;
+		break;
+	case SEARCH_PHONE_NUMEBER:
+		ssf = my_addressbook->contacts[i].phone_number;
+		break;
+	case SEARCH_EMAIL_ADDRESS:
+		ssf = my_addressbook->contacts[i].email_address;
+		break;
+	case SEARCH_COMPANY:
+		ssf = my_addressbook->contacts[i].company;
+		break;
+	}
+	return ssf;
+}

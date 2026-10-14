@@ -60,6 +60,7 @@ int main(void)
 			search_contacts(my_addressbook);
 			break;
 		case 5:
+			printf("%c\n", ask_letter_case());
 			break;
 		case 6:
 			break;
