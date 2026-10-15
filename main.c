@@ -57,7 +57,7 @@ int main(void)
 			delete_contact(my_addressbook);
 			break;
 		case 4:
-			search_contacts(my_addressbook);
+			search_contacts_main(my_addressbook);
 			break;
 		case 5:
 			printf("%c\n", ask_letter_case());

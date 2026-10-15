@@ -295,7 +295,7 @@ int check_id(AddressBook *my_addressbook)
 	return id_delete;
 }
 
-void search_contacts(AddressBook* my_addressbook)
+void search_contacts_main(AddressBook* my_addressbook)
 {
 	if (my_addressbook != NULL && my_addressbook->size > 0)
 	{
@@ -329,7 +329,7 @@ void search_contacts(AddressBook* my_addressbook)
 				still_searching = false;
 				break;
 			case 1:
-				
+				search_by_all_Contacts(my_addressbook, 0, ask_letter_case());
 				break;
 			case 2:
 				search_by_Contacts(my_addressbook, 0, ask_letter_case());
@@ -375,7 +375,7 @@ char ask_letter_case(void)
 	bool loop_me = true;
 	while (loop_me)
 	{
-		if ((ask = get_letter()) == 'Y' || ask == 'N')
+		if ((ask = get_letter()) == YES || ask == NO)
 		{
 			loop_me = false;
 		}
@@ -389,76 +389,6 @@ char ask_letter_case(void)
 		}
 	}
 	return ask;
-}
-
-void search_by_name(AddressBook* my_addressbook, char letter_case)
-{
-	int* ScoreBoard = NULL;
-	char strSearch[MAX_NAME];
-	int SizeScoreBoard = 0;
-	ScoreBoard = (int*)malloc(sizeof(int) * my_addressbook->size);
-	if (ScoreBoard == NULL)
-	{
-		printf("+--------------------------------------+\n");
-		printf("|    Error with malloc!                |\n");
-		printf("|    Returning to Search Menu.         |\n");
-		printf("+--------------------------------------+\n");
-		Sleep(TIME_SLEEP);
-	}
-	else
-	{
-		printf("+-----------------------------------------------+\n");
-		printf("|    Add string, that You want to search for:   |\n");
-		printf("+-----------------------------------------------+\n");
-		read_string(strSearch, MAX_NAME);
-		if (letter_case == NO)
-		{
-			char* UpperStrSearch = (char*)malloc(sizeof(char) * (strlen(strSearch) + 1));
-			char UpperContactName[MAX_NAME] = {'\0'};
-			if (UpperStrSearch == NULL)
-			{
-				printf("+--------------------------------------+\n");
-				printf("|    Error with malloc!                |\n");
-				printf("|    Returning to Search Menu.         |\n");
-				printf("+--------------------------------------+\n");
-				Sleep(TIME_SLEEP);
-				exit(EXIT_FAILURE);
-			}
-			else
-			{
-				for (int x = 0; x <= strlen(strSearch); x++)
-				{
-					UpperStrSearch[x] = toupper(*(strSearch + x));
-				}
-				for (int i = 0; i < my_addressbook->size; i++)
-				{
-					for (int k = 0; k < strlen(my_addressbook->contacts[i].name); k++)
-					{
-						UpperContactName[k] = toupper(my_addressbook->contacts[i].name[k]);
-					}
-					if (strstr(UpperContactName, UpperStrSearch))
-					{
-						*(ScoreBoard + SizeScoreBoard) = i;
-						SizeScoreBoard++;
-					}
-				}
-			}
-			free(UpperStrSearch);
-		}
-		else
-		{
-			for (int i = 0; i < my_addressbook->size; i++)
-			{
-				if (strstr(my_addressbook->contacts[i].name, strSearch))
-				{
-					*(ScoreBoard + SizeScoreBoard) = i;
-					SizeScoreBoard++;
-				}
-			}
-		}
-		view_result_struct(my_addressbook, ScoreBoard, SizeScoreBoard);
-	}
-	free(ScoreBoard);
 }
 
 void view_result_struct(const AddressBook* my_addressbook, int *ScoreBoard, int SizeScoreBoard)
@@ -575,4 +505,96 @@ char* selecting_right_field(AddressBook* my_addressbook, int field_number, int i
 		break;
 	}
 	return ssf;
+}
+
+void search_by_all_Contacts(AddressBook* my_addressbook, int field_number, char letter_case)
+{
+	int SizeScoreBoard = 0;
+	int* ScoreBoard = NULL;
+	char* searched_structure_field = NULL;
+	char strSearch[MAX_NAME];
+	ScoreBoard = (int*)malloc(sizeof(int) * my_addressbook->size);
+	if (ScoreBoard == NULL)
+	{
+		printf("+--------------------------------------+\n");
+		printf("|    Error with malloc!                |\n");
+		printf("|    Returning to Search Menu.         |\n");
+		printf("+--------------------------------------+\n");
+		Sleep(TIME_SLEEP);
+	}
+	else
+	{
+		printf("+-----------------------------------------------+\n");
+		printf("|    Add string, that You want to search for:   |\n");
+		printf("+-----------------------------------------------+\n");
+		read_string(strSearch, MAX_NAME);
+		if (letter_case == NO)
+		{
+			char* UpperStrSearch = (char*)malloc(sizeof(char) * (strlen(strSearch) + 1));
+			char UpperContactName[MAX_NAME] = { '\0' };
+			if (UpperStrSearch == NULL)
+			{
+				printf("+--------------------------------------+\n");
+				printf("|    Error with malloc!                |\n");
+				printf("|    Returning to Search Menu.         |\n");
+				printf("+--------------------------------------+\n");
+				Sleep(TIME_SLEEP);
+				exit(EXIT_FAILURE);
+			}
+			else
+			{
+				for (int x = 0; x <= strlen(strSearch); x++)
+				{
+					UpperStrSearch[x] = toupper(*(strSearch + x));
+				}
+				for (int i = 0; i < my_addressbook->size; i++)
+				{
+					for (int y = 0; y < LIMIT_FIELDS; y++)
+					{
+						searched_structure_field = all_fields_in_array(my_addressbook, i, y);
+						for (int k = 0; k < strlen(searched_structure_field); k++)
+						{
+							UpperContactName[k] = toupper(searched_structure_field[k]);
+						}
+						if (strstr(UpperContactName, UpperStrSearch))
+						{
+							*(ScoreBoard + SizeScoreBoard) = i;
+							SizeScoreBoard++;
+							break;
+						}
+					}
+				}
+			}
+			free(UpperStrSearch);
+		}
+		else
+		{
+			for (int i = 0; i < my_addressbook->size; i++)
+			{
+				for (int field_number = SEARCH_NAME; field_number <= SEARCH_COMPANY; field_number++)
+				{
+					searched_structure_field = selecting_right_field(my_addressbook, field_number, i);
+					if (strstr(searched_structure_field, strSearch))
+					{
+						*(ScoreBoard + SizeScoreBoard) = i;
+						SizeScoreBoard++;
+					}
+				}
+			}
+		}
+		view_result_struct(my_addressbook, ScoreBoard, SizeScoreBoard);
+	}
+	free(ScoreBoard);
+}
+
+char* all_fields_in_array(AddressBook* my_addressbook, int i, int y)
+{
+	char* ssf_name = my_addressbook->contacts[i].name;
+	char* ssf_last_name = my_addressbook->contacts[i].last_name;
+	char* ssf_phone_number = my_addressbook->contacts[i].phone_number;
+	char* ssf_email_address = my_addressbook->contacts[i].email_address;
+	char* ssf_company = my_addressbook->contacts[i].company;
+
+	char* ssf_all[LIMIT_FIELDS] = { ssf_name, ssf_last_name, ssf_phone_number, ssf_email_address, ssf_company };
+	return ssf_all[y];
 }

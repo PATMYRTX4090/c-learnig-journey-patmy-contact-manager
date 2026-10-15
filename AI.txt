@@ -527,3 +527,8 @@ Rozmawiamy tylko to tym problemie.
 COPILOT + stackoverflow
 zaoowocowało funkcją: Search_by_Contacts()
 https://stackoverflow.com/questions/59503102/how-to-pass-structure-field-name-to-function
+
+Więc,
+funkcja search_by_all_Contacts - zaimplementowana. Wykorzystano zarówno enum oraz tablice wskaźników. 
+Zastanawiam się, które rozwiązanie jest bardziej wydajne, może będziemy mieli okazję to sprawdzić.
+W załączniku pliki, proszę o code review.
