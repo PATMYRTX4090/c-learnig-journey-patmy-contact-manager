@@ -19,7 +19,7 @@ Functionality:
 								
 add------------------>DONE 10.10.2026  			  
 view----------------->DONE 10.10.2026  
-delete--------------->DONE 11.10.2026  						
+delete--------------->DONE 11.10.2026  
 search--------------->DONE 15.10.2026  
 edit----------------->WORK IN PROGRESS  
 save to file,  
