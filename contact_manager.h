@@ -15,6 +15,7 @@
 
 #define YES 'Y'
 #define NO 'N'
+#define LIMIT_FIELDS 5
 
 #define MAX_PHONE 16
 #define MAX_NAME 32
@@ -128,7 +129,7 @@ int check_id(AddressBook* my_addressbook);
 /*
 	Main menu for search function in contacts.
 */
-void search_contacts(AddressBook* my_addressbook);
+void search_contacts_main(AddressBook* my_addressbook);
 
 /*
 	Complements the search functions.
@@ -136,16 +137,26 @@ void search_contacts(AddressBook* my_addressbook);
 char ask_letter_case(void);
 
 /*
-	Searches by name.
-*/
-void search_by_name(AddressBook* my_addressbook, char letter_case);
-
-/*
-	
+	Function displays all found contacts that match the searching string. Includes a safegurad against an empty structure.
 */
 void view_result_struct(const AddressBook* my_addressbook, int* ScoreBoard, int SizeScoreBoard);
 
-
+/*
+	Function searching by structur fields - choosen by user. Enum.
+*/
 void search_by_Contacts(AddressBook* my_addressbook, int field_number, char letter_case);
 
+/*
+	Function allows to get right pointer to structur fields - choosen by user.
+*/
 char* selecting_right_field(AddressBook* my_addressbook, int field_number, int i);
+
+/*
+	Function searching by all structur fields. Enum and pointer array.
+*/
+void search_by_all_Contacts(AddressBook* my_addressbook, int field_number, char letter_case);
+
+/*
+	Function is giving a pointer to structur fields, using pointer array.
+*/
+char* all_fields_in_array(AddressBook* my_addressbook, int i, int k);
