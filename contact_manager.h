@@ -8,29 +8,75 @@
 #include <ctype.h>
 
 
+/*
+	String: Your choose.
+*/
 #define ASKING printf("Your choose: ")
+
+/*
+	String: Wrong choice !
+*/
 #define WRONG printf("Wrong choice !")
+
+/*
+	String: Try again..
+*/
 #define TRY printf("Try again...")
+
+/*
+	Control sequence: '\n'
+*/
 #define NEW_LINE printf("\n")
 
+/*
+	Char value equal to 'Y' == 1.
+*/
 #define YES 'Y'
+
+/*
+	Char value equal to 'N' == 0.
+*/
 #define NO 'N'
+
+/*
+	Value defining size of the pointer array.
+*/
 #define LIMIT_FIELDS 5
 
-#define MAX_PHONE 16
+/*
+	Specifies the size of the structure field: name and last_name.
+*/
 #define MAX_NAME 32
+
+/*
+	Specifies the size of the file name for reading and writing.
+*/
 #define MAX_FILENAME 32
+
+/*
+	Specifies the size of the structure field: phone_number.
+*/
+#define MAX_PHONE 16
+
+/*
+	Specifies the size of the structure field: email_address.
+*/
 #define MAX_EMAIL 64
 
+/*
+	Initial size of the Contacts structure.
+*/
 #define START_CAPACITY 2
 
 #define FILE_NAME "AdressBook.txt"
 
+/*
+	Value in ms, specifying the sleep duration for the Sleep() function.
+*/
 #define TIME_SLEEP 250
 
 #ifndef CONTACT_H
 #define CONTACT_H
-
 typedef struct 
 {
 	int ID;
@@ -64,6 +110,7 @@ typedef enum
 	SEARCH_EMAIL_ADDRESS,
 	SEARCH_COMPANY
 }Enum_Struct_Fields;
+
 
 /*
 	Removing unwanted characters from stdin.
@@ -124,12 +171,12 @@ void delete_contact(AddressBook* my_addressbook);
 /*
 	Function that assists in determing the correct ID contact.
 */
-int check_id(AddressBook* my_addressbook);
+int check_id(AddressBook* my_addressbook, bool EDIT_MODE);
 
 /*
 	Main menu for search function in contacts.
 */
-void search_contacts_main(AddressBook* my_addressbook);
+void search_contacts_main(AddressBook* my_addressbook, bool EDIT_MODE);
 
 /*
 	Complements the search functions.
@@ -154,9 +201,19 @@ char* selecting_right_field(AddressBook* my_addressbook, int field_number, int i
 /*
 	Function searching by all structur fields. Enum and pointer array.
 */
-void search_by_all_Contacts(AddressBook* my_addressbook, int field_number, char letter_case);
+void search_by_all_Contacts(AddressBook* my_addressbook, char letter_case);
 
 /*
 	Function is giving a pointer to structur fields, using pointer array.
 */
 char* all_fields_in_array(AddressBook* my_addressbook, int i, int k);
+
+/*
+	Function allows to edit right contact.
+*/
+void edit_contacts_main(AddressBook* my_addressbook);
+
+/*
+
+*/
+void edit_contact(AddressBook* my_addressbook, int edit_ID, int field_number, bool edit_all);

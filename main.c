@@ -20,7 +20,7 @@ int main(void)
 		printf("| | |     2. View contacts                      | | |\n");
 		printf("| | |     3. Delete contacts                    | | |\n");
 		printf("| | |     4. Search contacts                    | | |\n");
-		printf("| | |     5.                                    | | |\n");
+		printf("| | |     5. Edit contact                       | | |\n");
 		printf("| | |     6.                                    | | |\n");
 		printf("| | |     0. Exit                               | | |\n");
 		printf("| | +-------------------------------------------+ | |\n");
@@ -57,10 +57,10 @@ int main(void)
 			delete_contact(my_addressbook);
 			break;
 		case 4:
-			search_contacts_main(my_addressbook);
+			search_contacts_main(my_addressbook, false);
 			break;
 		case 5:
-			printf("%c\n", ask_letter_case());
+			edit_contacts_main(my_addressbook);
 			break;
 		case 6:
 			break;

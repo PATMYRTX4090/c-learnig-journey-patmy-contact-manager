@@ -532,3 +532,47 @@ Więc,
 funkcja search_by_all_Contacts - zaimplementowana. Wykorzystano zarówno enum oraz tablice wskaźników. 
 Zastanawiam się, które rozwiązanie jest bardziej wydajne, może będziemy mieli okazję to sprawdzić.
 W załączniku pliki, proszę o code review.
+
+Zanim zmienisz kod odpowiedz sobie:
+
+Czy zwracam element tablicy lokalnej?
+
+czy
+
+zwracam wskaźnik do napisu przechowywanego w strukturze?
+
+To jest bardzo subtelna różnica.
+
+Przeanalizuj to spokojnie.
+
+EDIT:
+1. uzytkownik wybiera z głównego menu 5,
+1.1 edycja danego kontaktu na podstawie ID!
+1.2 kiedy zapytać o ID? 
+1.3 zapytać użytkownika czy wie który kontakt chce edytować ? 
+1.4 czy należy wydrukować strukturę ? 
+1.5 czy może pozwolić na wyszukiwanie ?
+1.6 nastęnie z listy wyników, poprosić użytkownika o wprowadzenie ID,
+1.7 przejść do edycji:
+2. pojawia się główne menu, opcje do wyboru:
+	A. edycja całego kontaktu,
+	B. edycja imienia,
+	C. edycja nazwiska, 
+	D. edycja numer telefonu,
+	E. edcja emaila,
+	F. edycja firmy,
+3. 
+
+
+update 16.10.2026 (CR):
+1. edit_contact() - jedna funckja obsłguje całość, zarówno edycję pojedyńczego pola, jak i 
+całego rekordu,
+void edit_contact(AddressBook* my_addressbook, int edit_ID, int field_number, bool edit_all);
+
+2. search_contact_main - dodanie do deklracji funkcji wartości bool EDIT_MODE,
+podczas wywoływania funckji podczas edycji - miałem "pętle w pętli".
+tzn. pętla główna funkcji search_contact_main() oraz pętla główna edit_contact_main.
+Podczas działania powodowało wyświetlenie menu kolejny - powodując niepotrzebne zamieszanie. 
+Poprawiło to czytelność szukania oraz edycji w menu 5. 
+
+3. nadano uniwersalności funkcji check_id - obługa usuwania oraz edycji kontaktów. 

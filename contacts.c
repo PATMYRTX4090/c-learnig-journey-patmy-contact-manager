@@ -97,10 +97,12 @@ void cleanup_struct(AddressBook *my_addressbook)
 	my_addressbook->contacts = NULL;
 	free(my_addressbook);
 	my_addressbook = NULL;
-	printf("Deallocation: \n");
-	printf("my_addressbook->contacts,\n");
-	printf("my_addressbook\n");
-	printf("Done.\n");
+	printf("+---------------------------------------+\n");
+	printf("|    DEALLOCATION:                      |\n");
+	printf("|    my_addressbook->contacts,          |\n");
+	printf("|    my_addressbook                     |\n");
+	printf("|    DONE.                              |\n");
+	printf("+---------------------------------------+\n");
 	Sleep(TIME_SLEEP);
 }
 
@@ -121,17 +123,25 @@ void complete_struct(AddressBook *my_addressbook)
 		wsk_current_contacts->ID = my_addressbook->size;
 		printf("ID contact number: %d\n", wsk_current_contacts->ID);
 		printf("Please enter name:\n");
+		printf("------------------\n");
 		read_string(wsk_current_contacts->name, MAX_NAME);
 		printf("Please enter last name:\n");
+		printf("-----------------------\n");
 		read_string(wsk_current_contacts->last_name, MAX_NAME);
 		printf("Please enter phone number:\n");
+		printf("--------------------------\n");
 		read_string(wsk_current_contacts->phone_number, MAX_PHONE);
 		printf("Please enter email adress:\n");
+		printf("--------------------------\n");
 		read_string(wsk_current_contacts->email_address, MAX_EMAIL);
 		printf("Please enter company name:\n");
+		printf("--------------------------\n");
 		read_string(wsk_current_contacts->company, MAX_NAME);
 		wsk_current_contacts->active = true;
-		printf("Contact have been activated !\n");
+		printf("+-----------------------------------+\n");
+		printf("|    Contact have been activated !  |\n");
+		printf("+-----------------------------------+\n");
+		NEW_LINE;
 		printf("+-------------------------------------+\n");
 		printf("| Do You want to add more contatcs ?  |\n");
 		printf("|      Y - YES | N - NO               |\n");
@@ -159,7 +169,9 @@ void complete_struct(AddressBook *my_addressbook)
 		}
 
 	} while (add);
-	printf("Contacts adding is completed\n");
+	printf("+-------------------------------------+\n");
+	printf("|    Contacts adding is completed !   |\n");
+	printf("+-------------------------------------+\n");
 	Sleep(TIME_SLEEP);
 }
 
@@ -167,12 +179,15 @@ void view_struct(const AddressBook *my_addressbook)
 {
 	if (my_addressbook == NULL)
 	{
-		printf("No contacts available.\n");
+		printf("+------------------------------+\n");
+		printf("|    No contacts available.    |\n");
+		printf("+------------------------------+\n");
 		Sleep(TIME_SLEEP);
 	}
 	else
 	{
 		printf("LIST OF %d CONTACTS\n", my_addressbook->size);
+		NEW_LINE;
 		printf("+---+--------------------+------------------------------+--------------------+--------------------------------------------+--------------------------+\n");
 		printf("|%3s|%-20s|%-30s|%-20s|%-44s|%-26s|\n", "ID ", "NAME", "LAST NAME", "PHONE NUMBER", "EMAIL ADRESS", "COMPANY");
 		printf("+---+--------------------+------------------------------+--------------------+--------------------------------------------+--------------------------+\n");
@@ -220,7 +235,7 @@ void delete_contact(AddressBook* my_addressbook)
 		{
 			printf("To delelete contact, enter a ID number.\n");
 			ASKING;
-			id_delete = check_id(my_addressbook);
+			id_delete = check_id(my_addressbook, false);
 			printf("+---+--------------------+------------------------------+--------------------+--------------------------------------------+--------------------------+\n");
 			printf("|%3d|%-20s|%-30s|%-20s|%-44s|%-26s|\n", 
 				my_addressbook->contacts[id_delete - 1].ID,	
@@ -243,10 +258,10 @@ void delete_contact(AddressBook* my_addressbook)
 			if (my_addressbook->size > 0)
 			{
 				view_struct(my_addressbook);
-				printf("+-----------------------------------------------+\n");
-				printf("| Do You want to delete another contact ?       |\n");
-				printf("|            Y - YES | N - NO                   |\n");
-				printf("+-----------------------------------------------+\n");
+				printf("+-------------------------------------------------+\n");
+				printf("|    Do You want to delete another contact ?      |\n");
+				printf("|              Y - YES | N - NO                   |\n");
+				printf("+-------------------------------------------------+\n");
 				ASKING;
 				char ask;
 				if ((ask = get_letter()) == 'Y')
@@ -260,21 +275,25 @@ void delete_contact(AddressBook* my_addressbook)
 			}
 			else if (my_addressbook->size == 0)
 			{
-				printf("Address Book is empty!\n");
-				printf("Returning to Main Menu.\n");
+				printf("+-------------------------------+\n");
+				printf("|    Address Book is empty!     |\n");
+				printf("|    Returning to Main Menu.    |\n");
+				printf("+-------------------------------+\n");
 				delete = false;
 			}
 		}
 	}
 	else
 	{
-		printf("No contacts available.\n");
-		printf("Returning to Main Menu.\n");
+		printf("+-------------------------------+\n");
+		printf("|    No contacts available.     |\n");
+		printf("|    Returning to Main Menu.    |\n");
+		printf("+-------------------------------+\n");
 		Sleep(TIME_SLEEP);
 	}
 }
 
-int check_id(AddressBook *my_addressbook)
+int check_id(AddressBook *my_addressbook, bool EDIT_MODE)
 {
 	int id_delete = taking_number();
 	bool check = true;
@@ -282,12 +301,27 @@ int check_id(AddressBook *my_addressbook)
 	{
 		if (id_delete > 0 && id_delete <= my_addressbook->size)
 		{
-			printf("This contact will be deleted:\n");
-			check = false;
+			if (EDIT_MODE == true)
+			{
+				printf("+-------------------------------------+\n");
+				printf("|    This contact will be changed:    |\n");
+				printf("+-------------------------------------+\n");
+				check = false;
+			}
+			else
+			{
+				printf("+-------------------------------------+\n");
+				printf("|    This contact will be deleted:    |\n");
+				printf("+-------------------------------------+\n");
+				check = false;
+
+			}
 		}
 		else
 		{
-			printf("Enter valid ID number !\n");
+			printf("+------------------------------+\n");
+			printf("|    Enter valid ID number !   |\n");
+			printf("+------------------------------+\n");
 			id_delete = taking_number();
 			continue;
 		}
@@ -295,7 +329,7 @@ int check_id(AddressBook *my_addressbook)
 	return id_delete;
 }
 
-void search_contacts_main(AddressBook* my_addressbook)
+void search_contacts_main(AddressBook* my_addressbook, bool EDIT_MODE)
 {
 	if (my_addressbook != NULL && my_addressbook->size > 0)
 	{
@@ -329,7 +363,7 @@ void search_contacts_main(AddressBook* my_addressbook)
 				still_searching = false;
 				break;
 			case 1:
-				search_by_all_Contacts(my_addressbook, 0, ask_letter_case());
+				search_by_all_Contacts(my_addressbook, ask_letter_case());
 				break;
 			case 2:
 				search_by_Contacts(my_addressbook, 0, ask_letter_case());
@@ -351,6 +385,10 @@ void search_contacts_main(AddressBook* my_addressbook)
 				printf("|    Please chose right option!        |\n");
 				printf("+--------------------------------------+\n");
 				break;
+			}
+			if (EDIT_MODE == true)
+			{
+				still_searching = false;
 			}
 		}
 	}
@@ -507,7 +545,7 @@ char* selecting_right_field(AddressBook* my_addressbook, int field_number, int i
 	return ssf;
 }
 
-void search_by_all_Contacts(AddressBook* my_addressbook, int field_number, char letter_case)
+void search_by_all_Contacts(AddressBook* my_addressbook, char letter_case)
 {
 	int SizeScoreBoard = 0;
 	int* ScoreBoard = NULL;
@@ -594,7 +632,133 @@ char* all_fields_in_array(AddressBook* my_addressbook, int i, int y)
 	char* ssf_phone_number = my_addressbook->contacts[i].phone_number;
 	char* ssf_email_address = my_addressbook->contacts[i].email_address;
 	char* ssf_company = my_addressbook->contacts[i].company;
-
 	char* ssf_all[LIMIT_FIELDS] = { ssf_name, ssf_last_name, ssf_phone_number, ssf_email_address, ssf_company };
 	return ssf_all[y];
+}
+
+void edit_contacts_main(AddressBook* my_addressbook)
+{
+	bool editing = true;
+	if (my_addressbook != NULL && my_addressbook->size > 0)
+	{
+		char ask;
+		printf("+--------------------------------------------------------------------+\n");
+		printf("|  Before editing, Do You want to search for a right Contact ?       |\n");
+		printf("|                    Y - YES | N - NO                                |\n");
+		printf("+--------------------------------------------------------------------+\n");
+		ASKING;
+		if ((ask = get_letter()) == YES)
+		{
+			bool end_searching = false;
+			char asking;
+			while (end_searching == false)
+			{
+				search_contacts_main(my_addressbook, true);
+				printf("+--------------------------------------------------------+\n");
+				printf("|    Did You find the conctact intended for editing ?    |\n");
+				printf("|                 Y - YES | N - NO                       |\n");
+				printf("+--------------------------------------------------------+\n");
+				if ((asking = get_letter()) == YES)
+				{
+					printf("Remember contact ID !\n");
+					end_searching = true;
+				}
+				else
+				{
+					TRY;
+					Sleep(TIME_SLEEP);
+				}
+			}
+		}
+		printf("+---------------------------+\n");
+		printf("|                           |\n");
+		printf("|  Please enter the ID:     |\n");
+		printf("|                           |\n");
+		printf("+---------------------------+\n");
+		int edit_ID = check_id(my_addressbook, true);
+		while (editing)
+		{
+			printf("+------------------------------------------------+\n");
+			printf("| +--------------------------------------------+ |\n");
+			printf("| |     Editing Adress Book                    | |\n");
+			printf("| |     Available options below:               | |\n");
+			printf("| |                                            | |\n");
+			printf("| |      1. Change all                         | |\n");
+			printf("| |      2. Change name                        | |\n");
+			printf("| |      3. Change last name                   | |\n");
+			printf("| |      4. Change phone number                | |\n");
+			printf("| |      5. Change email address               | |\n");
+			printf("| |      6. Change company                     | |\n");
+			printf("| |      0. Exit                               | |\n");
+			printf("| +--------------------------------------------+ |\n");
+			printf("+------------------------------------------------+\n");
+			ASKING;
+			int search_by = taking_number();
+			switch (search_by)
+			{
+			case 0:
+				printf("+--------------------------------------+\n");
+				printf("|  I am leaving the editing options.   |\n");
+				printf("|  Returning to Main Menu.             |\n");
+				printf("+--------------------------------------+\n");
+				Sleep(TIME_SLEEP);
+				editing = false;
+				break;
+			case 1:
+				edit_contact(my_addressbook, edit_ID, 0, true);
+				break;
+			case 2:
+				edit_contact(my_addressbook, edit_ID, 0, false);
+				break;
+			case 3:
+				edit_contact(my_addressbook, edit_ID, 1, false);
+				break;
+			case 4:
+				edit_contact(my_addressbook, edit_ID, 2, false);
+				break;
+			case 5:
+				edit_contact(my_addressbook, edit_ID, 3, false);
+				break;
+			case 6:
+				edit_contact(my_addressbook, edit_ID, 4, false);
+				break;
+			default:
+				printf("+--------------------------------------+\n");
+				printf("|    Please chose right option!        |\n");
+				printf("+--------------------------------------+\n");
+				break;
+			}
+		}
+	}
+	else
+	{
+		printf("+------------------------------------------+\n");
+		printf("|    No contacts available for editing.    |\n");
+		printf("+------------------------------------------+\n");
+		Sleep(TIME_SLEEP);
+	}
+}
+
+void edit_contact(AddressBook* my_addressbook, int edit_ID, int field_number, bool edit_all)
+{
+	char* Field_Names[LIMIT_FIELDS] = { "Name", "Last name", "Phone number", "Email address", "Company" };
+	int Field_Sizes[LIMIT_FIELDS] = { MAX_NAME, MAX_NAME, MAX_PHONE, MAX_EMAIL, MAX_NAME };
+	if (edit_all == false)
+	{
+		printf("Let's start editing constact %s\n", Field_Names[field_number]);
+		printf("------------------------------------------------------------\n");
+		read_string(all_fields_in_array(my_addressbook, edit_ID - 1, field_number), Field_Sizes[field_number]);
+	}
+	else
+	{
+		for (int i = SEARCH_NAME; i <= SEARCH_COMPANY; i++)
+		{
+			printf("Editing constact %s\n", Field_Names[i]);
+			printf("----------------------------------------\n");
+			read_string(all_fields_in_array(my_addressbook, edit_ID - 1, i), Field_Sizes[i]);
+		}
+	}
+	printf("+---------------------------------------+\n");
+	printf("|    Editing successfully completed.    |\n");
+	printf("+---------------------------------------+\n");
 }
