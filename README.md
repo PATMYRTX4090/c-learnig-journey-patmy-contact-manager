@@ -1,4 +1,4 @@
-FIRST QUEST  
+﻿FIRST QUEST  
 
 START:		06.10.2026  
 END:		31.10.2026 ?  
@@ -22,8 +22,10 @@ view----------------->DONE 10.10.2026
 delete--------------->DONE 11.10.2026  
 search--------------->DONE 15.10.2026  
 edit----------------->DONE 16.10.2026  
-save to file,  
-read from file.  
+save to file--------->DONE 17.10.2026  
+read from file------->DONE 17.10.2026  
+
+Tests --------------->WORK IN PROGRESS  
 
 What will You train:  
 
@@ -39,4 +41,4 @@ Files organization:
 	contacts.c  
 		- all function definition for adding, viewing, searching, deleting and editing.  
 	files.c  
-		-  
+		-  function for file handling.  
