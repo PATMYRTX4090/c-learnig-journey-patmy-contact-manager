@@ -576,3 +576,18 @@ Podczas działania powodowało wyświetlenie menu kolejny - powodując niepotrze
 Poprawiło to czytelność szukania oraz edycji w menu 5. 
 
 3. nadano uniwersalności funkcji check_id - obługa usuwania oraz edycji kontaktów. 
+
+UPDATE 17.10.2026
+1. funkcje zapisu do pliku i odczytu z pliku zaimplementowano,
+2. wstępnie przetestowano,
+3. wychwycone błędy: 
+	a) w przypadku zapisu numeru telefonu ze spacją tj. 789 789 798 -> rujnuje to odczyt pliku,
+		z pewnością taki 'bug' powtórzy się dla każdego innego pola, 
+		które w łańcuchu będzie miało spacje - funckja fscanf_s czyta do spacji.
+	
+	TODO:
+	1. wprowadzenie funkcji weryfikującej poprawność adresu mailowego. 
+	2. ZASTANOWIĆ SIĘ SOLIDNIE NAD FUNKCJONALNOŚCIA/UŻYTECZNOŚCIĄ
+	POLA STRUKTURY is_modifed. 
+	3. Wykonać testy programu, z dużym plikiem, optymalizacja kodu ?
+	

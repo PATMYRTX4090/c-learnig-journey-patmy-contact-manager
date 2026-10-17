@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -209,11 +209,22 @@ void search_by_all_Contacts(AddressBook* my_addressbook, char letter_case);
 char* all_fields_in_array(AddressBook* my_addressbook, int i, int k);
 
 /*
-	Function allows to edit right contact.
+	Mian function taht introduce a edit contact.
 */
 void edit_contacts_main(AddressBook* my_addressbook);
 
 /*
-
+	Function allow to chenge a specific field of the struct or all of them. 
 */
 void edit_contact(AddressBook* my_addressbook, int edit_ID, int field_number, bool edit_all);
+
+
+/*
+	Function allows to save Addressbook and Contacts to file.
+*/
+void save_to_file_my_addressbook(AddressBook* my_addressbook);
+
+AddressBook* read_from_file_my_addressbook();
+
+AddressBook* init_struct_for_file();
+

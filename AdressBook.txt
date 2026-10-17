@@ -1,0 +1,6 @@
+AdressBook.txt                   8   5   1
+1   Patryk                           Myslewski                        781134412        patrykmyslewski@outlook.com                                      Dom                              1
+2   Maciej                           Myslewski                        789789789        macek@trol.pl                                                    PKU                              1
+3   Zbigniew                         Myslewski                        123123123        zm@rolf.pl                                                       GEO                              1
+4   Konrad                           Myslewski                        321123321        konrad1994@lop.pl                                                Dom                              1
+5   Sisi                             Sier˜ciuch                       0                0                                                                Dom-Kotka                        1

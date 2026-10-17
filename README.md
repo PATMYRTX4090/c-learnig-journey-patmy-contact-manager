@@ -21,12 +21,12 @@ add------------------>DONE 10.10.2026
 view----------------->DONE 10.10.2026  
 delete--------------->DONE 11.10.2026  
 search--------------->DONE 15.10.2026  
-edit----------------->DONE 16.10.2026
+edit----------------->DONE 16.10.2026  
 save to file,  
 read from file.  
 
 What will You train:  
-			
+
 struct, pointers,  
 dynamic arrays, malloc, realloc,  
 file operation,  

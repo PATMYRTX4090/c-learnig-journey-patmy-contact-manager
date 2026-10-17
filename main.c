@@ -1,4 +1,4 @@
-/*
+﻿/*
 	GLOBAL VARIABLES PROHIBITED !
 */
 
@@ -21,7 +21,8 @@ int main(void)
 		printf("| | |     3. Delete contacts                    | | |\n");
 		printf("| | |     4. Search contacts                    | | |\n");
 		printf("| | |     5. Edit contact                       | | |\n");
-		printf("| | |     6.                                    | | |\n");
+		printf("| | |     6. Write contacts to file             | | |\n");
+		printf("| | |     7. Read  contacts form file           | | |\n");
 		printf("| | |     0. Exit                               | | |\n");
 		printf("| | +-------------------------------------------+ | |\n");
 		printf("| +-----------------------------------------------+ |\n");
@@ -63,6 +64,10 @@ int main(void)
 			edit_contacts_main(my_addressbook);
 			break;
 		case 6:
+			save_to_file_my_addressbook(my_addressbook);
+			break;
+		case 7:
+			my_addressbook = read_from_file_my_addressbook();
 			break;
 		default:
 			WRONG;
