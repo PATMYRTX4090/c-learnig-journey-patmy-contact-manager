@@ -591,3 +591,6 @@ UPDATE 17.10.2026
 	POLA STRUKTURY is_modifed. 
 	3. Wykonać testy programu, z dużym plikiem, optymalizacja kodu ?
 	
+
+18.10.2026:
+void data_accuracy_mail_and_phone(Contact* wsk_current_contact, int check_field)

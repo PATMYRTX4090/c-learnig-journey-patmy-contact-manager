@@ -1,4 +1,4 @@
-#include "contact_manager.h"
+﻿#include "contact_manager.h"
 
 void eat_char(void)
 {
@@ -131,9 +131,11 @@ void complete_struct(AddressBook *my_addressbook)
 		printf("Please enter phone number:\n");
 		printf("--------------------------\n");
 		read_string(wsk_current_contacts->phone_number, MAX_PHONE);
+		data_accuracy_mail_and_phone(wsk_current_contacts, 0);
 		printf("Please enter email adress:\n");
 		printf("--------------------------\n");
 		read_string(wsk_current_contacts->email_address, MAX_EMAIL);
+		data_accuracy_mail_and_phone(wsk_current_contacts, 1);
 		printf("Please enter company name:\n");
 		printf("--------------------------\n");
 		read_string(wsk_current_contacts->company, MAX_NAME);
@@ -761,4 +763,61 @@ void edit_contact(AddressBook* my_addressbook, int edit_ID, int field_number, bo
 	printf("+---------------------------------------+\n");
 	printf("|    Editing successfully completed.    |\n");
 	printf("+---------------------------------------+\n");
+}
+
+void data_accuracy_mail_and_phone(Contact* wsk_current_contact, int check_field)
+{
+	char* domains[] = { "@gmail.com", "@onet.pl", "@op.pl", "@wp.pl", "@o2.pl", "@int.pl", "@interia.pl", "@poczta.fm", "@outlook.com", "@hotmail.com", "@icloud.com", "@yahoo.com"};
+	switch (check_field)
+	{
+	case 0:
+		int i = 0;
+		while (wsk_current_contact->phone_number[i] != '\0')
+		{
+			if (wsk_current_contact->phone_number[i] == ' ')
+			{
+				wsk_current_contact->phone_number[i] = '-';
+				i++;
+			}
+			else
+			{
+				i++;
+			}
+		}
+		break;
+	case 1:
+		bool end = false;
+		int domain_check_OK = 0;
+		int domain_check_NOK = 0;
+		while (end == false)
+		{
+			for (int i = 0; i < _countof(domains); i++)
+			{
+				if (strstr(wsk_current_contact->email_address, domains[i]) != NULL)
+				{
+					domain_check_OK++;
+				}
+				else
+				{
+					domain_check_NOK++;
+				}
+			}
+			if (domain_check_OK == 1 )
+			{
+				end = true;
+				domain_check_OK = 0;
+			}
+			else if (domain_check_NOK != 1)
+			{
+				printf("+---------------------------------------------+\n");
+				printf("|An invalid email address was entered.        |\n");
+				printf("|Please check the address domain.             |\n");
+				printf("|Enter correct address.                       |\n");
+				printf("+---------------------------------------------+\n");
+				read_string(wsk_current_contact->email_address, MAX_EMAIL);
+				domain_check_NOK = 0;
+			}
+		}
+		break;
+	}
 }

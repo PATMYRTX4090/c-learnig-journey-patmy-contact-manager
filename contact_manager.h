@@ -218,6 +218,14 @@ void edit_contacts_main(AddressBook* my_addressbook);
 */
 void edit_contact(AddressBook* my_addressbook, int edit_ID, int field_number, bool edit_all);
 
+/*
+	Functions check data sccuracy for struct fields: phone number and mail address.
+	when: 
+	check_field == 0 -> checking phone number,
+	check_field == 1 -> checking email_address.
+*/
+void data_accuracy_mail_and_phone(Contact* wsk_current_contact, int check_field);
+
 
 /*
 	Function allows to save Addressbook and Contacts to file.
