@@ -23,6 +23,7 @@
 */
 #define TRY printf("Try again...")
 
+
 /*
 	Control sequence: '\n'
 */
@@ -68,7 +69,12 @@
 */
 #define START_CAPACITY 2
 
-#define FILE_NAME "AdressBook.txt"
+/*
+	String for file names. 
+*/
+#define FILE_NAME "AddressBook.txt"
+#define BIN_FILE_NAME "AddressBook.bin"
+#define SEARCH_FILE_NAME "SearchResult.txt"
 
 /*
 	Value in ms, specifying the sleep duration for the Sleep() function.
@@ -110,7 +116,6 @@ typedef enum
 	SEARCH_EMAIL_ADDRESS,
 	SEARCH_COMPANY
 }Enum_Struct_Fields;
-
 
 /*
 	Removing unwanted characters from stdin.
@@ -226,13 +231,47 @@ void edit_contact(AddressBook* my_addressbook, int edit_ID, int field_number, bo
 */
 void data_accuracy_mail_and_phone(Contact* wsk_current_contact, int check_field);
 
+/*
+	Main menu for saving struct.
+*/
+void saving_struct_to_file_main(AddressBook* my_addressbook);
 
 /*
-	Function allows to save Addressbook and Contacts to file.
+	Function allows to save Addressbook and Contacts to file in text mode.
 */
 void save_to_file_my_addressbook(AddressBook* my_addressbook);
 
-AddressBook* read_from_file_my_addressbook();
+/*
+	Function allows to save a search results to file in text mode.
+*/
+void save_to_file_searched_contacts(AddressBook* my_addressbook, int* ScoreBoard, int SizeScoreBoard);
 
+/*
+ 	Function allows to save Addressbook and Contacts to file in binary mode.
+*/
+void bin_save_file_my_addressbook(AddressBook* my_addressbook);
+
+/*
+	Check status of the AddressBook is modified.
+*/
+void is_struct_saved_to_file(AddressBook* my_addressbook);
+
+/*
+	Allocates memory for structs AddressBook and Contact before reading a file.
+*/
 AddressBook* init_struct_for_file();
 
+/*
+	Main menu for reading struct.
+*/
+AddressBook* reading_struct_from_file_main();
+
+/*
+	Function for reading struct from file in text mode.
+*/
+AddressBook* read_from_file_my_addressbook();
+
+/*
+	 Function for reading struct from file in binare mode.
+*/
+AddressBook* bin_read_from_file_my_addressbook();

@@ -22,7 +22,7 @@ int main(void)
 		printf("| | |     4. Search contacts                    | | |\n");
 		printf("| | |     5. Edit contact                       | | |\n");
 		printf("| | |     6. Write contacts to file             | | |\n");
-		printf("| | |     7. Read  contacts form file           | | |\n");
+		printf("| | |     7. Read contacts form file            | | |\n");
 		printf("| | |     0. Exit                               | | |\n");
 		printf("| | +-------------------------------------------+ | |\n");
 		printf("| +-----------------------------------------------+ |\n");
@@ -32,13 +32,14 @@ int main(void)
 		switch (options)
 		{
 		case 0:
-			printf("Good bye !\n");
-			Sleep(250);
 			if (my_addressbook != NULL)
 			{
+				is_struct_saved_to_file(my_addressbook);
 				cleanup_struct(my_addressbook);
 			}
 			working = false;
+			Sleep(250);
+			printf("Good bye !\n");
 			break;
 		case 1:
 			if (my_addressbook == NULL)
@@ -64,10 +65,10 @@ int main(void)
 			edit_contacts_main(my_addressbook);
 			break;
 		case 6:
-			save_to_file_my_addressbook(my_addressbook);
+			saving_struct_to_file_main(my_addressbook);
 			break;
 		case 7:
-			my_addressbook = read_from_file_my_addressbook();
+			my_addressbook = reading_struct_from_file_main();
 			break;
 		default:
 			WRONG;
