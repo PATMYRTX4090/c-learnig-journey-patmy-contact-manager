@@ -365,3 +365,5 @@ FodyWeavers.xsd
 # Ignore my notes file
 AI.txt
 /AI.txt
+/AddressBook.txt
+/AddressBook.bin
