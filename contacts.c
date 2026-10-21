@@ -52,22 +52,14 @@ char* read_string(char* Table, int T_Size)
 	return Adres_Lancucha;
 }
 
-AddressBook* init_struct()
+AddressBook *init_struct_main(int type_init)
 {
-	AddressBook* my_addressbook = (AddressBook*)malloc(sizeof(AddressBook));
-	if (my_addressbook == NULL)
+	AddressBook* my_addressbook = NULL;
+	switch (type_init)
 	{
-		printf("+-------------------------------+\n");
-		printf("|     Error with malloc() !     |\n");
-		printf("|    Closing the application    |\n");
-		printf("+-------------------------------+\n");
-		Sleep(TIME_SLEEP);
-		exit(EXIT_FAILURE);
-	}
-	else
-	{
-		my_addressbook->contacts = (Contact*)malloc(sizeof(Contact) * START_CAPACITY);
-		if (my_addressbook->contacts == NULL)
+	case 0:
+		my_addressbook = (AddressBook*)malloc(sizeof(AddressBook));
+		if (my_addressbook == NULL)
 		{
 			printf("+-------------------------------+\n");
 			printf("|     Error with malloc() !     |\n");
@@ -78,25 +70,78 @@ AddressBook* init_struct()
 		}
 		else
 		{
-			my_addressbook->size = 0;
-			my_addressbook->capacity = START_CAPACITY;
-			my_addressbook->is_modifed = false;
-			strcpy_s(my_addressbook->file_name, MAX_FILENAME, FILE_NAME);
-			init_active(my_addressbook);
-			printf("+---------------------------------------+\n");
-			printf("|    Success with memory allocation!    |\n");
-			printf("+---------------------------------------+\n");
-			Sleep(TIME_SLEEP);
+			my_addressbook->contacts = (Contact*)malloc(sizeof(Contact) * START_CAPACITY);
+			if (my_addressbook->contacts == NULL)
+			{
+				printf("+-------------------------------+\n");
+				printf("|     Error with malloc() !     |\n");
+				printf("|    Closing the application    |\n");
+				printf("+-------------------------------+\n");
+				Sleep(TIME_SLEEP);
+				exit(EXIT_FAILURE);
+			}
+			else
+			{
+				my_addressbook->size = 0;
+				my_addressbook->capacity = START_CAPACITY;
+				my_addressbook->is_modified = false;
+				strcpy_s(my_addressbook->file_name, MAX_FILENAME, FILE_NAME);
+				init_active(my_addressbook);
+				printf("+---------------------------------------+\n");
+				printf("|    Success with memory allocation!    |\n");
+				printf("+---------------------------------------+\n");
+				Sleep(TIME_SLEEP);
+			}
 		}
+		break;
+	case 1:
+		my_addressbook = (AddressBook*)malloc(sizeof(AddressBook));
+		if (my_addressbook == NULL)
+		{
+			printf("+-------------------------------+\n");
+			printf("|     Error with malloc() !     |\n");
+			printf("|    Closing the application    |\n");
+			printf("+-------------------------------+\n");
+			Sleep(TIME_SLEEP);
+			exit(EXIT_FAILURE);
+		}
+		else
+		{
+			my_addressbook->contacts = (Contact*)malloc(sizeof(Contact) * START_CAPACITY);
+			if (my_addressbook->contacts == NULL)
+			{
+				printf("+-------------------------------+\n");
+				printf("|     Error with malloc() !     |\n");
+				printf("|    Closing the application    |\n");
+				printf("+-------------------------------+\n");
+				Sleep(TIME_SLEEP);
+				exit(EXIT_FAILURE);
+			}
+			else
+			{
+				printf("+---------------------------------------+\n");
+				printf("|    Success with memory allocation!    |\n");
+				printf("+---------------------------------------+\n");
+				Sleep(TIME_SLEEP);
+			}
+		}
+		break;
+	default:
+		printf("+--------------------------------------------------------------------------+\n");
+		printf("|    Wrong number:                                                         |\n");
+		printf("|    0 - for initialization during application startup!                    |\n");
+		printf("|    1 - for initialization during application reading file bin or txt!    |\n");
+		printf("+--------------------------------------------------------------------------+\n");
+		break;
 	}
 	return my_addressbook;
 }
 
-void init_active(AddressBook* my_adressbook)
+void init_active(AddressBook* my_addressbook)
 {
-	for (int i = my_adressbook->size; i < my_adressbook->capacity; i++)
+	for (int i = my_addressbook->size; i < my_addressbook->capacity; i++)
 	{
-		my_adressbook->contacts[i].active = false;
+		my_addressbook->contacts[i].active = false;
 	}
 }
 
@@ -106,12 +151,12 @@ void cleanup_struct(AddressBook *my_addressbook)
 	my_addressbook->contacts = NULL;
 	free(my_addressbook);
 	my_addressbook = NULL;
-	printf("+---------------------------------+\n");
-	printf("|    DEALLOCATION:                |\n");
-	printf("|    my_addressbook->contacts,    |\n");
-	printf("|    my_addressbook               |\n");
-	printf("|    DONE.                        |\n");
-	printf("+---------------------------------+\n");
+	printf("+--------------------------------------+\n");
+	printf("|    DEALLOCATION:                     |\n");
+	printf("|		1.my_addressbook->contacts,    |\n");
+	printf("|		2.my_addressbook               |\n");
+	printf("|    DONE.                             |\n");
+	printf("+--------------------------------------+\n");
 	Sleep(TIME_SLEEP);
 }
 
@@ -128,7 +173,7 @@ void complete_struct(AddressBook *my_addressbook)
 			wsk_current_contacts++;
 		}
 		my_addressbook->size++;
-		my_addressbook->is_modifed = true;
+		my_addressbook->is_modified = true;
 		wsk_current_contacts->ID = my_addressbook->size;
 		printf("ID contact number: %d\n", wsk_current_contacts->ID);
 		printf("Please enter name:\n");
@@ -199,12 +244,12 @@ void view_struct(const AddressBook *my_addressbook)
 	{
 		printf("LIST OF %d CONTACTS\n", my_addressbook->size);
 		NEW_LINE;
-		printf("+---+--------------------+------------------------------+--------------------+--------------------------------------------+--------------------------+\n");
-		printf("|%3s|%-20s|%-30s|%-20s|%-44s|%-26s|\n", "ID ", "NAME", "LAST NAME", "PHONE NUMBER", "EMAIL ADRESS", "COMPANY");
-		printf("+---+--------------------+------------------------------+--------------------+--------------------------------------------+--------------------------+\n");
+		printf("+-----+--------------------+------------------------------+--------------------+--------------------------------------------+--------------------------+\n");
+		printf("|  %5s|%-20s|%-30s|%-20s|%-44s|%-26s|\n", "ID ", "NAME", "LAST NAME", "PHONE NUMBER", "EMAIL ADRESS", "COMPANY");
+		printf("+-----+--------------------+------------------------------+--------------------+--------------------------------------------+--------------------------+\n");
 		for (int i = 0; i < my_addressbook->size; i++)
 		{
-			printf("|%3d|%-20s|%-30s|%-20s|%-44s|%-26s|\n", my_addressbook->contacts[i].ID, my_addressbook->contacts[i].name, my_addressbook->contacts[i].last_name, my_addressbook->contacts[i].phone_number, my_addressbook->contacts[i].email_address, my_addressbook->contacts[i].company);
+			printf("|%5d|%-20s|%-30s|%-20s|%-44s|%-26s|\n", my_addressbook->contacts[i].ID, my_addressbook->contacts[i].name, my_addressbook->contacts[i].last_name, my_addressbook->contacts[i].phone_number, my_addressbook->contacts[i].email_address, my_addressbook->contacts[i].company);
 			printf("+---+--------------------+------------------------------+--------------------+--------------------------------------------+--------------------------+\n");
 		}
 		printf("+----------------------------------------------------+\n");
@@ -244,7 +289,6 @@ void delete_contact(AddressBook* my_addressbook)
 		printf("+-----------------------------+\n");
 		view_struct(my_addressbook);
 		bool delete = true;
-		//bool check = true;
 		int id_delete;
 		while (delete)
 		{
@@ -253,15 +297,15 @@ void delete_contact(AddressBook* my_addressbook)
 			printf("+-----------------------------------------------+\n");
 			ASKING;
 			id_delete = check_id(my_addressbook, false);
-			printf("+---+--------------------+------------------------------+--------------------+--------------------------------------------+--------------------------+\n");
-			printf("|%3d|%-20s|%-30s|%-20s|%-44s|%-26s|\n", 
+			printf("+-----+--------------------+------------------------------+--------------------+--------------------------------------------+--------------------------+\n");
+			printf("|  %5d|%-20s|%-30s|%-20s|%-44s|%-26s|\n", 
 				my_addressbook->contacts[id_delete - 1].ID,	
 				my_addressbook->contacts[id_delete - 1].name, 
 				my_addressbook->contacts[id_delete - 1].last_name, 
 				my_addressbook->contacts[id_delete - 1].phone_number, 
 				my_addressbook->contacts[id_delete - 1].email_address, 
 				my_addressbook->contacts[id_delete - 1].company);
-			printf("+---+--------------------+------------------------------+--------------------+--------------------------------------------+--------------------------+\n");
+			printf("+-----+--------------------+------------------------------+--------------------+--------------------------------------------+--------------------------+\n");
 			for (int i = (id_delete - 1); i < my_addressbook->size - 1; i++)
 			{
 				memcpy_s(&my_addressbook->contacts[i], sizeof(Contact), &my_addressbook->contacts[i +	1], sizeof(Contact));
@@ -275,7 +319,7 @@ void delete_contact(AddressBook* my_addressbook)
 			if (my_addressbook->size > 0)
 			{
 				view_struct(my_addressbook);
-				my_addressbook->is_modifed = true;
+				my_addressbook->is_modified = true;
 				printf("+-------------------------------------------------+\n");
 				printf("|    Do You want to delete another contact ?      |\n");
 				printf("|              Y - YES | N - NO                   |\n");
@@ -297,7 +341,7 @@ void delete_contact(AddressBook* my_addressbook)
 				printf("|    Address Book is empty!     |\n");
 				printf("|    Returning to Main Menu.    |\n");
 				printf("+-------------------------------+\n");
-				my_addressbook->is_modifed = false;
+				my_addressbook->is_modified = false;
 				delete = false;
 			}
 		}
@@ -314,6 +358,7 @@ void delete_contact(AddressBook* my_addressbook)
 
 int check_id(AddressBook *my_addressbook, bool EDIT_MODE)
 {
+	ASKING;
 	int id_delete = taking_number();
 	bool check = true;
 	while (check)
@@ -341,6 +386,7 @@ int check_id(AddressBook *my_addressbook, bool EDIT_MODE)
 			printf("+------------------------------+\n");
 			printf("|    Enter valid ID number !   |\n");
 			printf("+------------------------------+\n");
+			ASKING;
 			id_delete = taking_number();
 			continue;
 		}
@@ -414,9 +460,9 @@ void search_contacts_main(AddressBook* my_addressbook, bool EDIT_MODE)
 	else
 	{
 		printf("+-------------------------------------+\n");
-		printf("|    No contacts available.           |\n");
+		printf("|       No contacts available.        |\n");
 		printf("|    There is nothing to search.      |\n");
-		printf("|    Returning to Main Menu.          |\n");
+		printf("|      Returning to Main Menu.        |\n");
 		printf("+-------------------------------------+\n");
 		Sleep(TIME_SLEEP);
 	}
@@ -451,19 +497,19 @@ char ask_letter_case(void)
 void view_result_struct(const AddressBook* my_addressbook, int *ScoreBoard, int SizeScoreBoard)
 {
 	printf("LIST OF FOUND CONTACTS: %d\n", SizeScoreBoard);
-	printf("+---+--------------------+------------------------------+--------------------+--------------------------------------------+--------------------------+\n");
-	printf("|%3s|%-20s|%-30s|%-20s|%-44s|%-26s|\n", "ID ", "NAME", "LAST NAME", "PHONE NUMBER", "EMAIL ADRESS", "COMPANY");
-	printf("+---+--------------------+------------------------------+--------------------+--------------------------------------------+--------------------------+\n");
+	printf("+-----+--------------------+------------------------------+--------------------+--------------------------------------------+--------------------------+\n");
+	printf("|  %5s|%-20s|%-30s|%-20s|%-44s|%-26s|\n", "ID ", "NAME", "LAST NAME", "PHONE NUMBER", "EMAIL ADRESS", "COMPANY");
+	printf("+-----+--------------------+------------------------------+--------------------+--------------------------------------------+--------------------------+\n");
 	for (int i = 0; i < SizeScoreBoard; i++)
 	{
-		printf("|%3d|%-20s|%-30s|%-20s|%-44s|%-26s|\n", 
+		printf("|%5d|%-20s|%-30s|%-20s|%-44s|%-26s|\n", 
 			my_addressbook->contacts[*(ScoreBoard + i)].ID, 
 			my_addressbook->contacts[*(ScoreBoard + i)].name, 
 			my_addressbook->contacts[*(ScoreBoard + i)].last_name, 
 			my_addressbook->contacts[*(ScoreBoard + i)].phone_number, 
 			my_addressbook->contacts[*(ScoreBoard + i)].email_address, 
 			my_addressbook->contacts[*(ScoreBoard + i)].company);
-		printf("+---+--------------------+------------------------------+--------------------+--------------------------------------------+--------------------------+\n");
+		printf("+-----+--------------------+------------------------------+--------------------+--------------------------------------------+--------------------------+\n");
 	}
 }
 
@@ -545,7 +591,24 @@ void search_by_Contacts(AddressBook *my_addressbook, int field_number, char lett
 		char ask_search_save;
 		if ((ask_search_save = get_letter()) == YES)
 		{
-			save_to_file_searched_contacts(my_addressbook, ScoreBoard, SizeScoreBoard);
+			printf("+---------------------------------------+\n");
+			printf("|    Select file format:                |\n");
+			printf("|     A - No formating.                 |\n");
+			printf("|     B - Separation with semicolon.    |\n");
+			printf("+---------------------------------------+\n");
+			ASKING;
+			switch ((ask_search_save = get_letter()))
+			{
+			case 'A':
+				save_to_file_searched_contacts(my_addressbook, ScoreBoard, SizeScoreBoard);
+				break;
+			case 'B':
+				save_to_file_searched_semicolon_contacts(my_addressbook, ScoreBoard, SizeScoreBoard);
+				break;
+			default:
+				printf("Incorrect format!\n");
+				break;
+			}
 		}
 	}
 	free(ScoreBoard);
@@ -584,11 +647,12 @@ void search_by_all_Contacts(AddressBook* my_addressbook, char letter_case)
 	ScoreBoard = (int*)malloc(sizeof(int) * my_addressbook->size);
 	if (ScoreBoard == NULL)
 	{
-		printf("+--------------------------------------+\n");
-		printf("|    Error with malloc!                |\n");
-		printf("|    Returning to Search Menu.         |\n");
-		printf("+--------------------------------------+\n");
-		Sleep(TIME_SLEEP);
+		printf("+--------------------------------------------------+\n");
+		printf("|               Error with malloc!                 |\n");
+		printf("|    Allocating memory for ID array of results.    |\n");
+		printf("|            Returning to Search Menu.             |\n");
+		printf("+--------------------------------------------------+\n");
+		Sleep(ERROR_TIME_SLEEP);
 	}
 	else
 	{
@@ -603,8 +667,8 @@ void search_by_all_Contacts(AddressBook* my_addressbook, char letter_case)
 			if (UpperStrSearch == NULL)
 			{
 				printf("+--------------------------------------+\n");
-				printf("|    Error with malloc!                |\n");
-				printf("|    Returning to Search Menu.         |\n");
+				printf("|        Error with malloc!            |\n");
+				printf("|        Closing application.          |\n");
 				printf("+--------------------------------------+\n");
 				Sleep(TIME_SLEEP);
 				exit(EXIT_FAILURE);
@@ -651,6 +715,31 @@ void search_by_all_Contacts(AddressBook* my_addressbook, char letter_case)
 			}
 		}
 		view_result_struct(my_addressbook, ScoreBoard, SizeScoreBoard);
+		NEW_LINE;
+		printf("+---------------------------------------------------+\n");
+		printf("|    Would You like to save the search results ?    |\n");
+		printf("|                Y - YES | N - NO                   |\n");
+		printf("+---------------------------------------------------+\n");
+		char ask_search_save;
+		if ((ask_search_save = get_letter()) == YES)
+		printf("+---------------------------------------+\n");
+		printf("|    Select file format:                |\n");
+		printf("|     A - No formating.                 |\n");
+		printf("|     B - Separation with semicolon.    |\n");
+		printf("+---------------------------------------+\n");
+		ASKING;
+		switch ((ask_search_save = get_letter()))
+		{
+		case 'A':
+			save_to_file_searched_contacts(my_addressbook, ScoreBoard, SizeScoreBoard);
+			break;
+		case 'B':
+			save_to_file_searched_semicolon_contacts(my_addressbook, ScoreBoard, SizeScoreBoard);
+			break;
+		default:
+			printf("Incorrect format!\n");
+			break;
+		}
 	}
 	free(ScoreBoard);
 }
@@ -707,7 +796,9 @@ void edit_contacts_main(AddressBook* my_addressbook)
 		printf("|  Please enter the ID:     |\n");
 		printf("|                           |\n");
 		printf("+---------------------------+\n");
+		ASKING;
 		int edit_ID = check_id(my_addressbook, true);
+		NEW_LINE;
 		while (editing)
 		{
 			printf("+------------------------------------------------+\n");
@@ -738,31 +829,31 @@ void edit_contacts_main(AddressBook* my_addressbook)
 				break;
 			case 1:
 				edit_contact(my_addressbook, edit_ID, 0, true);
-				my_addressbook->is_modifed = true;
+				my_addressbook->is_modified = true;
 				break;
 			case 2:
 				edit_contact(my_addressbook, edit_ID, 0, false);
-				my_addressbook->is_modifed = true;
+				my_addressbook->is_modified = true;
 				break;
 			case 3:
 				edit_contact(my_addressbook, edit_ID, 1, false);
-				my_addressbook->is_modifed = true;
+				my_addressbook->is_modified = true;
 				break;
 			case 4:
 				edit_contact(my_addressbook, edit_ID, 2, false);
-				my_addressbook->is_modifed = true;
+				my_addressbook->is_modified = true;
 				break;
 			case 5:
 				edit_contact(my_addressbook, edit_ID, 3, false);
-				my_addressbook->is_modifed = true;
+				my_addressbook->is_modified = true;
 				break;
 			case 6:
 				edit_contact(my_addressbook, edit_ID, 4, false);
-				my_addressbook->is_modifed = true;
+				my_addressbook->is_modified = true;
 				break;
 			default:
 				printf("+--------------------------------------+\n");
-				printf("|    Please chose right option!        |\n");
+				printf("|    Please choose right option!       |\n");
 				printf("+--------------------------------------+\n");
 				break;
 			}
@@ -863,8 +954,8 @@ void data_accuracy_mail_and_phone(Contact* wsk_current_contact, int check_field)
 			{
 				printf("+---------------------------------------------+\n");
 				printf("|    An invalid email address was entered.    |\n");
-				printf("|    Please check the address domain.         |\n");
-				printf("|    Enter correct address.                   |\n");
+				printf("|       Please check the address domain.      |\n");
+				printf("|           Enter correct address.            |\n");
 				printf("+---------------------------------------------+\n");
 				read_string(wsk_current_contact->email_address, MAX_EMAIL);
 				domain_check_NOK = 0;

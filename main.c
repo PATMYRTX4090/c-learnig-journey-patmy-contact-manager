@@ -1,5 +1,5 @@
 ﻿/*
-	GLOBAL VARIABLES PROHIBITED !
+	GLOBAL VARIABLES PROHIBITED ! TOTAL LINE CODE: 1600
 */
 
 #include "contact_manager.h"
@@ -29,6 +29,7 @@ int main(void)
 		printf("+---------------------------------------------------+\n");
 		ASKING;
 		int options = taking_number();
+		NEW_LINE;
 		switch (options)
 		{
 		case 0:
@@ -44,7 +45,7 @@ int main(void)
 		case 1:
 			if (my_addressbook == NULL)
 			{
-				my_addressbook = init_struct();
+				my_addressbook = init_struct_main(0);
 				complete_struct(my_addressbook);
 			}
 			else
