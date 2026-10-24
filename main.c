@@ -69,10 +69,34 @@ int main(void)
 			saving_struct_to_file_main(my_addressbook);
 			break;
 		case 7:
-			my_addressbook = reading_struct_from_file_main();
+			if (my_addressbook == NULL)
+			{
+				my_addressbook = init_struct_main(1);
+				reading_struct_from_file_main(my_addressbook);
+			}
+			else if (my_addressbook != NULL && my_addressbook->size > 0)
+			{
+				printf("+----------------------------------------------------------------------+\n");
+				printf("|    Please note that the Address Book has already active contacts!    |\n");
+				printf("|                 Number of active contacs: %5d                      |\n", my_addressbook->size);
+				printf("|               Continuing will result in data lost.                   |\n");
+				printf("|          Would You like to save existing AddresBook ?                |\n");
+				printf("|                           Continue ?                                 |\n");
+				printf("|                       Y - YES | N - NO                               |\n");
+				printf("|     YES == saving the current address book and loading new one !     |\n");
+				printf("+----------------------------------------------------------------------+\n");
+				ASKING;
+				char question;
+				if ((question = get_letter()) == 'Y')
+				{
+					save_to_file_semicolon_my_addressbook(my_addressbook);
+					reading_struct_from_file_main(my_addressbook);
+				}
+			}
 			break;
 		default:
 			WRONG;
+			NEW_LINE;
 			break;
 		}
 	}

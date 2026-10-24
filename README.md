@@ -26,6 +26,12 @@ save to file--------->DONE 17.10.2026
 read from file------->DONE 17.10.2026  
 
 Tests --------------->WORK IN PROGRESS  
+used file with 10 000 contacts,  
+finded bugs:  
+1. Run-Time Check Failure #2 .Stack around the variable 'UpperContactName' was corrupted to small int  
+used for array declaration. Used MAX_NAME = 32, now MAX_EMAIL = 64.  
+2.  
+
 
 What will You train:  
 

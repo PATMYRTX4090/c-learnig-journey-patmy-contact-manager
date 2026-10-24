@@ -82,7 +82,8 @@ void saving_struct_to_file_main(AddressBook* my_addressbook)
 void save_to_file_my_addressbook(AddressBook* my_addressbook)
 {
 	FILE* PLIK_TXT;
-	if (fopen_s(&PLIK_TXT, FILE_NAME, "w+") != 0)
+	char file_name[MAX_FILE_NAME] = { '\0' };
+	if (fopen_s(&PLIK_TXT, making_or_reading_a_file_name(file_name, " ", 1), "w+") != 0)
 	{
 		printf("+----------------------------------------------+\n");
 		printf("|    There was a problem with file opening.    |\n");
@@ -123,7 +124,8 @@ void save_to_file_my_addressbook(AddressBook* my_addressbook)
 void save_to_file_semicolon_my_addressbook(AddressBook* my_addressbook)
 {
 	FILE* PLIK_TXT_SEMICOLON;
-	if (fopen_s(&PLIK_TXT_SEMICOLON, SEMICOLON_FILE_NAME, "w+") != 0)
+	char file_name[MAX_FILE_NAME] = { '\0' };
+	if (fopen_s(&PLIK_TXT_SEMICOLON, making_or_reading_a_file_name(file_name, " ", 1), "w+") != 0)
 	{
 		printf("+----------------------------------------------+\n");
 		printf("|    There was a problem with file opening.    |\n");
@@ -141,7 +143,7 @@ void save_to_file_semicolon_my_addressbook(AddressBook* my_addressbook)
 			my_addressbook->capacity, 
 			my_addressbook->size, 
 			my_addressbook->is_modified);
-		for (int i = 0; i < DATA_BLOCK; i++)
+		for (int i = 0; i < my_addressbook->size; i++)
 		{
 
 			fprintf(PLIK_TXT_SEMICOLON, "%d;%s;%s;%s;%s;%s;%d\n",
@@ -161,10 +163,11 @@ void save_to_file_semicolon_my_addressbook(AddressBook* my_addressbook)
 	}
 }
 
-void save_to_file_searched_contacts(AddressBook* my_addressbook, int *ScoreBoard, int SizeScoreBoard)
+void save_to_file_searched_contacts(AddressBook* my_addressbook, int *ScoreBoard, int SizeScoreBoard, char SearchedStr[])
 {
 	FILE* SEARCH_PLIK_TXT;
-	if (fopen_s(&SEARCH_PLIK_TXT, SEARCH_FILE_NAME, "w+") != 0)
+	char file_name[MAX_FILE_NAME] = { '\0' };
+	if (fopen_s(&SEARCH_PLIK_TXT, making_or_reading_a_file_name(file_name, SearchedStr, 4), "w+") != 0)
 	{
 		printf("+----------------------------------------------+\n");
 		printf("|    There was a problem with file opening.    |\n");
@@ -202,10 +205,11 @@ void save_to_file_searched_contacts(AddressBook* my_addressbook, int *ScoreBoard
 	}
 }
 
-void save_to_file_searched_semicolon_contacts(AddressBook* my_addressbook, int* ScoreBoard, int SizeScoreBoard)
+void save_to_file_searched_semicolon_contacts(AddressBook* my_addressbook, int* ScoreBoard, int SizeScoreBoard, char SearchedStr[])
 {
 	FILE* SEARCH_PLIK_TXT_SEMICOLON;
-	if (fopen_s(&SEARCH_PLIK_TXT_SEMICOLON, "NO_SEMICOLON.txt", "w+") != 0)
+	char file_name[MAX_FILE_NAME] = { '\0' };
+	if (fopen_s(&SEARCH_PLIK_TXT_SEMICOLON, making_or_reading_a_file_name(file_name, SearchedStr, 4), "w+") != 0)
 	{
 		printf("+----------------------------------------------+\n");
 		printf("|    There was a problem with file opening.    |\n");
@@ -247,7 +251,8 @@ void save_to_file_searched_semicolon_contacts(AddressBook* my_addressbook, int* 
 void bin_save_file_my_addressbook(AddressBook* my_addressbook)
 {
 	FILE* PLIK_BIN;
-	if (fopen_s(&PLIK_BIN, BIN_FILE_NAME, "wb+") != 0)
+	char file_name[MAX_FILE_NAME] = { '\0' };
+	if (fopen_s(&PLIK_BIN, making_or_reading_a_file_name(file_name, " ", 0), "wb+") != 0)
 	{
 		printf("+----------------------------------------------+\n");
 		printf("|    There was a problem with file opening.    |\n");
@@ -276,21 +281,21 @@ void bin_save_file_my_addressbook(AddressBook* my_addressbook)
 	}
 }
 
-AddressBook* reading_struct_from_file_main()
+void reading_struct_from_file_main(AddressBook* my_addressbook)
 {
-	AddressBook* my_addressbook = NULL;
 	bool write = true;
 	while (write)
 	{
 		printf("+------------------------------------------------+\n");
 		printf("| +--------------------------------------------+ |\n");
-		printf("| |     Reading a Adress Book                  | |\n");
+		printf("| |     Reading a Address Book                 | |\n");
 		printf("| |     Available options below:               | |\n");
 		printf("| |                                            | |\n");
-		printf("| |     1. Read from bin file.                 | |\n");
-		printf("| |     2. Read from txt file.                 | |\n");
-		printf("| |     3. Read from txt file with semicolon.  | |\n");
-		printf("| |     0. Exit                                | |\n");
+		printf("| |    1. Read from bin file.                  | |\n");
+		printf("| |    2. Read from txt file.                  | |\n");
+		printf("| |    3. Read from txt file with semicolon.   | |\n");
+		printf("| |    4. Read from file & add to existing AB. | |\n");
+		printf("| |    0. Exit                                 | |\n");
 		printf("| +--------------------------------------------+ |\n");
 		printf("+------------------------------------------------+\n");
 		ASKING;
@@ -306,31 +311,42 @@ AddressBook* reading_struct_from_file_main()
 			write = false;
 			break;
 		case 1:
-			my_addressbook = bin_read_from_file_my_addressbook();
 			if (my_addressbook == NULL)
 			{
 				write = true;
 			}
 			else
 			{
+				bin_read_from_file_my_addressbook(my_addressbook);
 				my_addressbook->is_modified = false;
 				write = false;
 			}
 			break;
 		case 2:
-			my_addressbook = read_from_file_my_addressbook();
 			if (my_addressbook == NULL)
 			{
 				write = true;
 			}
 			else
 			{
+				read_from_file_my_addressbook(my_addressbook);
 				my_addressbook->is_modified = false;
 				write = false;
 			}
 			break;
 		case 3:
-			my_addressbook = read_from_file_semicolon_my_addressbook();
+			if (my_addressbook == NULL)
+			{
+				write = true;
+			}
+			else
+			{
+				read_from_file_semicolon_my_addressbook(my_addressbook);
+				my_addressbook->is_modified = false;
+				write = false;
+			}
+			break;
+		case 4:
 			if (my_addressbook == NULL)
 			{
 				write = true;
@@ -346,50 +362,40 @@ AddressBook* reading_struct_from_file_main()
 			printf("|    Please chose right option!        |\n");
 			printf("+--------------------------------------+\n");
 			TRY;
+			NEW_LINE;
 			break;
 		}
 	}
-	return my_addressbook;
 }
 
-AddressBook* read_from_file_my_addressbook()
+void read_from_file_my_addressbook(AddressBook *my_addressbook)
 {
-	AddressBook* my_addressbook = init_struct_main(1);
 	int temp_is_modified;
 	int temp_actvice;
-	if (my_addressbook == NULL)
-	{
-		printf("+-------------------------------+\n");
-		printf("|     Error with malloc() !     |\n");
-		printf("|    Closing the application    |\n");
-		printf("+-------------------------------+\n");
-		Sleep(TIME_SLEEP);
-		exit(EXIT_FAILURE);
-	}
 	FILE* PLIK_TXT;
-	if (fopen_s(&PLIK_TXT, FILE_NAME, "r") != 0)
+	char file_name[MAX_FILE_NAME] = { '\0' };
+	if (fopen_s(&PLIK_TXT, making_or_reading_a_file_name(file_name, " ", 2), "r") != 0)
 	{
 		printf("+----------------------------------------------+\n");
 		printf("|    There was a problem with file opening.    |\n");
-		printf("|	   CHECK THE FILE NAME AND EXTENSION       |\n");
+		printf("|      CHECK THE FILE NAME AND EXTENSION       |\n");
 		printf("|         Returning to Read Menu               |\n");
 		printf("|           Please try again !                 |\n");
 		printf("+----------------------------------------------+\n");
 		Sleep(ERROR_TIME_SLEEP);
-		return my_addressbook = NULL;
 	}
 	else
 	{
-		fscanf_s(PLIK_TXT, "%32s %3d %3d %d", 
-			my_addressbook->file_name, MAX_FILENAME, 
-			&my_addressbook->capacity, 
-			&my_addressbook->size, 
+		fscanf_s(PLIK_TXT, "%32s %3d %3d %d",
+			my_addressbook->file_name, MAX_FILENAME,
+			&my_addressbook->capacity,
+			&my_addressbook->size,
 			&temp_is_modified);
 		my_addressbook->is_modified = temp_is_modified;
 		printf("+--------------------------------------------------+\n");
-		printf("| MY ADDRESS BOOK FILE NAME: %s       |\n", my_addressbook->file_name);													    
-		printf("| MY ADDRESS BOOK CAPACITY : %3d                   |\n", my_addressbook->capacity); 														    
-		printf("| MY ADDRESS BOOK SIZE     : %3d                   |\n", my_addressbook->size);	   
+		printf("| MY ADDRESS BOOK FILE NAME: %s       |\n", my_addressbook->file_name);
+		printf("| MY ADDRESS BOOK CAPACITY : %5d                 |\n", my_addressbook->capacity);
+		printf("| MY ADDRESS BOOK SIZE     : %5d                 |\n", my_addressbook->size);
 		printf("+--------------------------------------------------+\n");
 		Sleep(TIME_SLEEP);
 		for (int i = 0; i < my_addressbook->size; i++)
@@ -397,7 +403,7 @@ AddressBook* read_from_file_my_addressbook()
 			if (i == 0)
 			{
 				Contact* ptr_temp;
-				ptr_temp = (Contact*)realloc(my_addressbook->contacts, my_addressbook->capacity *	sizeof(Contact));
+				ptr_temp = (Contact*)realloc(my_addressbook->contacts, my_addressbook->capacity * sizeof(Contact));
 				if (ptr_temp == NULL)
 				{
 					printf("+-------------------------------+\n");
@@ -428,47 +434,37 @@ AddressBook* read_from_file_my_addressbook()
 		printf("+-------------------------+\n");
 		fclose(PLIK_TXT);
 		Sleep(TIME_SLEEP);
-		return my_addressbook;
 	}
 }
 
-AddressBook* read_from_file_semicolon_my_addressbook()
+void read_from_file_semicolon_my_addressbook(AddressBook* my_addressbook)
 {
-	AddressBook* my_addressbook = init_struct_main(1);
 	int temp_is_modified;
 	int temp_actvice;
-	if (my_addressbook == NULL)
-	{
-		printf("+-------------------------------+\n");
-		printf("|     Error with malloc() !     |\n");
-		printf("|    Closing the application    |\n");
-		printf("+-------------------------------+\n");
-		exit(EXIT_FAILURE);
-	}
 	FILE* PLIK_SEMICOLON_TXT;
-	if (fopen_s(&PLIK_SEMICOLON_TXT, SEMICOLON_FILE_NAME, "r") != 0)
+	char file_name[MAX_FILE_NAME] = { '\0' };
+	if (fopen_s(&PLIK_SEMICOLON_TXT, making_or_reading_a_file_name(file_name, " ", 2), "r") != 0)
 	{
 		printf("+----------------------------------------------+\n");
 		printf("|    There was a problem with file opening.    |\n");
-		printf("|	   CHECK THE FILE NAME AND EXTENSION       |\n");
+		printf("|      CHECK THE FILE NAME AND EXTENSION       |\n");
 		printf("|         Returning to Read Menu               |\n");
 		printf("|           Please try again !                 |\n");
 		printf("+----------------------------------------------+\n");
 		Sleep(ERROR_TIME_SLEEP);
-		return my_addressbook = NULL;
 	}
 	else
 	{
-		fscanf_s(PLIK_SEMICOLON_TXT, "%[^;];%d;%d;%d", 
+		fscanf_s(PLIK_SEMICOLON_TXT, "%[^;];%d;%d;%d",
 			my_addressbook->file_name, MAX_FILENAME,
-			&my_addressbook->capacity, 
-			&my_addressbook->size, 
+			&my_addressbook->capacity,
+			&my_addressbook->size,
 			&temp_is_modified);
 		my_addressbook->is_modified = temp_is_modified;
 		printf("+--------------------------------------------------+\n");
 		printf("| MY ADDRESS BOOK FILE NAME: %s       |\n", my_addressbook->file_name);
-		printf("| MY ADDRESS BOOK CAPACITY : %3d                   |\n", my_addressbook->capacity);
-		printf("| MY ADDRESS BOOK SIZE     : %3d                   |\n", my_addressbook->size);
+		printf("| MY ADDRESS BOOK CAPACITY : %5d                 |\n", my_addressbook->capacity);
+		printf("| MY ADDRESS BOOK SIZE     : %5d                 |\n", my_addressbook->size);
 		printf("+--------------------------------------------------+\n");
 		Sleep(TIME_SLEEP);
 		for (int i = 0; i < my_addressbook->size; i++)
@@ -476,7 +472,7 @@ AddressBook* read_from_file_semicolon_my_addressbook()
 			if (i == 0)
 			{
 				Contact* ptr_temp;
-				ptr_temp = (Contact*)realloc(my_addressbook->contacts, my_addressbook->capacity * sizeof	(Contact));
+				ptr_temp = (Contact*)realloc(my_addressbook->contacts, my_addressbook->capacity * sizeof(Contact));
 				if (ptr_temp == NULL)
 				{
 					printf("+-------------------------------+\n");
@@ -507,32 +503,22 @@ AddressBook* read_from_file_semicolon_my_addressbook()
 		printf("|    READING SUCCESS !    |\n");
 		printf("+-------------------------+\n");
 		Sleep(TIME_SLEEP);
-		return my_addressbook;
 	}
 }
 
-AddressBook* bin_read_from_file_my_addressbook()
+void bin_read_from_file_my_addressbook(AddressBook* my_addressbook)
 {
-	AddressBook* my_addressbook = init_struct_main(1);
-	if (my_addressbook == NULL)
-	{
-		printf("+-------------------------------+\n");
-		printf("|     Error with malloc() !     |\n");
-		printf("|    Closing the application    |\n");
-		printf("+-------------------------------+\n");
-		exit(EXIT_FAILURE);
-	}
 	FILE* PLIK_BIN;
-	if (fopen_s(&PLIK_BIN, BIN_FILE_NAME, "rb+") != 0)
+	char file_name[MAX_FILE_NAME] = { '\0' };
+	if (fopen_s(&PLIK_BIN, making_or_reading_a_file_name(file_name, " ", 2), "rb+") != 0)
 	{
 		printf("+----------------------------------------------+\n");
 		printf("|    There was a problem with file opening.    |\n");
-		printf("|	   CHECK THE FILE NAME AND EXTENSION       |\n");
+		printf("|      CHECK THE FILE NAME AND EXTENSION       |\n");
 		printf("|         Returning to Read Menu               |\n");
 		printf("|           Please try again !                 |\n");
 		printf("+----------------------------------------------+\n");
 		Sleep(ERROR_TIME_SLEEP);
-		return my_addressbook = NULL;
 	}
 	else
 	{
@@ -541,13 +527,13 @@ AddressBook* bin_read_from_file_my_addressbook()
 		fread_s(&my_addressbook->size, sizeof(int), sizeof(int), 1, PLIK_BIN);
 		fread_s(&my_addressbook->is_modified, sizeof(bool), sizeof(bool), 1, PLIK_BIN);
 		printf("+--------------------------------------------------+\n");
-		printf("| MY ADDRESS BOOK FILE NAME: %-13s       |\n", my_addressbook->file_name);
-		printf("| MY ADDRESS BOOK CAPACITY : %3d                   |\n", my_addressbook->capacity);
-		printf("| MY ADDRESS BOOK SIZE     : %3d                   |\n", my_addressbook->size);
+		printf("| MY ADDRESS BOOK FILE NAME: %13s       |\n", my_addressbook->file_name);
+		printf("| MY ADDRESS BOOK CAPACITY : %5d                 |\n", my_addressbook->capacity);
+		printf("| MY ADDRESS BOOK SIZE     : %5d                 |\n", my_addressbook->size);
 		printf("+--------------------------------------------------+\n");
 		Sleep(TIME_SLEEP);
 		Contact* ptr_temp;
-		ptr_temp = (Contact*)realloc(my_addressbook->contacts, my_addressbook->capacity * sizeof	(Contact));
+		ptr_temp = (Contact*)realloc(my_addressbook->contacts, my_addressbook->capacity * sizeof(Contact));
 		if (ptr_temp == NULL)
 		{
 			printf("+-------------------------------+\n");
@@ -563,14 +549,81 @@ AddressBook* bin_read_from_file_my_addressbook()
 			Sleep(TIME_SLEEP);
 			for (int i = 0; i < my_addressbook->size; i++)
 			{
-				fread_s(&my_addressbook->contacts[i], (my_addressbook->size * sizeof(Contact)),		sizeof  (Contact), 1, PLIK_BIN);
+				fread_s(&my_addressbook->contacts[i], (my_addressbook->size * sizeof(Contact)), sizeof(Contact), 1, PLIK_BIN);
 			}
 			fclose(PLIK_BIN);
 			printf("+-------------------------+\n");
 			printf("|    READING SUCCESS !    |\n");
 			printf("+-------------------------+\n");
 			Sleep(TIME_SLEEP);
-			return my_addressbook;
 		}
 	}
+}
+
+char* making_or_reading_a_file_name(char* file_name,char *Searched_String, int bin_txt)
+{
+	switch (bin_txt)
+	{
+	case 0:
+		printf("+-----------------------------------------------------------------+\n");
+		printf("|            Please provide name of the file in which,            |\n");
+		printf("|                 the address book will be saved !                |\n");
+		printf("|                   Name only, without extension.                 |\n");
+		printf("|      Default extension: .bin and will be added automatically.   |\n");
+		printf("+-----------------------------------------------------------------+\n");
+		NEW_LINE;
+		ASKING;
+		read_string(file_name, MAX_FILE_NAME);
+		char* file_name_bin = ".bin";
+		strcat_s(file_name, MAX_FILE_NAME, file_name_bin);
+		break;
+	case 1:
+		printf("+-----------------------------------------------------------------+\n");
+		printf("|             Please provide name of the file in which,           |\n");
+		printf("|                 the address book will be saved !                |\n");
+		printf("|                   Name only, without extension.                 |\n");
+		printf("|     Default extension: .txt and will be added automatically.    |\n");
+		printf("+-----------------------------------------------------------------+\n");
+		NEW_LINE;
+		ASKING;
+		read_string(file_name, MAX_FILE_NAME);
+		char* file_name_txt = ".txt";
+		strcat_s(file_name, MAX_FILE_NAME, file_name_txt);
+		break;
+	case 2:
+		printf("+---------------------------------------------------------------+\n");
+		printf("|          Enter name of the file you want to read !            |\n");
+		printf("|              File name including the extension.               |\n");
+		printf("+---------------------------------------------------------------+\n");
+		NEW_LINE;
+		ASKING;
+		read_string(file_name, MAX_FILE_NAME);
+		break;
+	case 4:
+		char* name_result = "Search_Result_For_";
+		char* ground = "_On_";
+		char* f_txt = ".txt";
+		char current_time[MAX_FILE_NAME] = { '\0' };
+		time_t ct;
+		time(&ct);
+		strcat_s(file_name, MAX_FILE_NAME, name_result);
+		strcat_s(file_name, MAX_FILE_NAME, Searched_String);
+		strcat_s(file_name, MAX_FILE_NAME, ground);
+		ctime_s(current_time, MAX_FILE_NAME, &ct);
+		strcat_s(file_name, MAX_FILE_NAME, current_time);
+		for (int i = 0; i < strlen(file_name); i++)
+		{
+			if (file_name[i] == ' ' || file_name[i] == ':')
+			{
+				file_name[i] = '_';
+			}
+			else if (file_name[i] == '\n')
+			{
+				file_name[i] = '\0';
+			}
+		}
+		strcat_s(file_name, MAX_FILE_NAME, f_txt);
+		printf("FILE NAME: %s\n", file_name);
+	}
+	return file_name;
 }

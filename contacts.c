@@ -153,8 +153,8 @@ void cleanup_struct(AddressBook *my_addressbook)
 	my_addressbook = NULL;
 	printf("+--------------------------------------+\n");
 	printf("|    DEALLOCATION:                     |\n");
-	printf("|		1.my_addressbook->contacts,    |\n");
-	printf("|		2.my_addressbook               |\n");
+	printf("|     1.my_addressbook->contacts,      |\n");
+	printf("|     2.my_addressbook                 |\n");
 	printf("|    DONE.                             |\n");
 	printf("+--------------------------------------+\n");
 	Sleep(TIME_SLEEP);
@@ -245,12 +245,12 @@ void view_struct(const AddressBook *my_addressbook)
 		printf("LIST OF %d CONTACTS\n", my_addressbook->size);
 		NEW_LINE;
 		printf("+-----+--------------------+------------------------------+--------------------+--------------------------------------------+--------------------------+\n");
-		printf("|  %5s|%-20s|%-30s|%-20s|%-44s|%-26s|\n", "ID ", "NAME", "LAST NAME", "PHONE NUMBER", "EMAIL ADRESS", "COMPANY");
+		printf("|%3s  |%-20s|%-30s|%-20s|%-44s|%-26s|\n", "ID ", "NAME", "LAST NAME", "PHONE NUMBER", "EMAIL ADRESS", "COMPANY");
 		printf("+-----+--------------------+------------------------------+--------------------+--------------------------------------------+--------------------------+\n");
 		for (int i = 0; i < my_addressbook->size; i++)
 		{
-			printf("|%5d|%-20s|%-30s|%-20s|%-44s|%-26s|\n", my_addressbook->contacts[i].ID, my_addressbook->contacts[i].name, my_addressbook->contacts[i].last_name, my_addressbook->contacts[i].phone_number, my_addressbook->contacts[i].email_address, my_addressbook->contacts[i].company);
-			printf("+---+--------------------+------------------------------+--------------------+--------------------------------------------+--------------------------+\n");
+			printf("|%-5d|%-20s|%-30s|%-20s|%-44s|%-26s|\n", my_addressbook->contacts[i].ID, my_addressbook->contacts[i].name, my_addressbook->contacts[i].last_name, my_addressbook->contacts[i].phone_number, my_addressbook->contacts[i].email_address, my_addressbook->contacts[i].company);
+			printf("+-----+--------------------+------------------------------+--------------------+--------------------------------------------+--------------------------+\n");
 		}
 		printf("+----------------------------------------------------+\n");
 		printf("|    ADDRESS BOOK FILE NAME: %s         |\n", my_addressbook->file_name);
@@ -474,6 +474,7 @@ char ask_letter_case(void)
 	printf("|  Should capitalization matter ?   |\n");
 	printf("|        Y - YES | N - NO           |\n");
 	printf("+-----------------------------------+\n");
+	ASKING;
 	char ask;
 	bool loop_me = true;
 	while (loop_me)
@@ -498,7 +499,7 @@ void view_result_struct(const AddressBook* my_addressbook, int *ScoreBoard, int 
 {
 	printf("LIST OF FOUND CONTACTS: %d\n", SizeScoreBoard);
 	printf("+-----+--------------------+------------------------------+--------------------+--------------------------------------------+--------------------------+\n");
-	printf("|  %5s|%-20s|%-30s|%-20s|%-44s|%-26s|\n", "ID ", "NAME", "LAST NAME", "PHONE NUMBER", "EMAIL ADRESS", "COMPANY");
+	printf("|%3s  |%-20s|%-30s|%-20s|%-44s|%-26s|\n", "ID ", "NAME", "LAST NAME", "PHONE NUMBER", "EMAIL ADRESS", "COMPANY");
 	printf("+-----+--------------------+------------------------------+--------------------+--------------------------------------------+--------------------------+\n");
 	for (int i = 0; i < SizeScoreBoard; i++)
 	{
@@ -534,11 +535,11 @@ void search_by_Contacts(AddressBook *my_addressbook, int field_number, char lett
 		printf("+-----------------------------------------------+\n");
 		printf("|    Add string, that You want to search for:   |\n");
 		printf("+-----------------------------------------------+\n");
-		read_string(strSearch, MAX_NAME);
+		read_string(strSearch, MAX_EMAIL);
 		if (letter_case == NO)
 		{
 			char* UpperStrSearch = (char*)malloc(sizeof(char) * (strlen(strSearch) + 1));
-			char UpperContactName[MAX_NAME] = { '\0' };
+			char UpperContactName[MAX_EMAIL] = { '\0' };
 			if (UpperStrSearch == NULL)
 			{
 				printf("+-------------------------------+\n");
@@ -588,6 +589,7 @@ void search_by_Contacts(AddressBook *my_addressbook, int field_number, char lett
 		printf("|    Would You like to save the search results ?    |\n");
 		printf("|                Y - YES | N - NO                   |\n");
 		printf("+---------------------------------------------------+\n");
+		ASKING;
 		char ask_search_save;
 		if ((ask_search_save = get_letter()) == YES)
 		{
@@ -600,10 +602,10 @@ void search_by_Contacts(AddressBook *my_addressbook, int field_number, char lett
 			switch ((ask_search_save = get_letter()))
 			{
 			case 'A':
-				save_to_file_searched_contacts(my_addressbook, ScoreBoard, SizeScoreBoard);
+				save_to_file_searched_contacts(my_addressbook, ScoreBoard, SizeScoreBoard, strSearch);
 				break;
 			case 'B':
-				save_to_file_searched_semicolon_contacts(my_addressbook, ScoreBoard, SizeScoreBoard);
+				save_to_file_searched_semicolon_contacts(my_addressbook, ScoreBoard, SizeScoreBoard, strSearch);
 				break;
 			default:
 				printf("Incorrect format!\n");
@@ -659,11 +661,11 @@ void search_by_all_Contacts(AddressBook* my_addressbook, char letter_case)
 		printf("+-----------------------------------------------+\n");
 		printf("|    Add string, that You want to search for:   |\n");
 		printf("+-----------------------------------------------+\n");
-		read_string(strSearch, MAX_NAME);
+		read_string(strSearch, MAX_EMAIL);
 		if (letter_case == NO)
 		{
 			char* UpperStrSearch = (char*)malloc(sizeof(char) * (strlen(strSearch) + 1));
-			char UpperContactName[MAX_NAME] = { '\0' };
+			char UpperContactName[MAX_EMAIL] = { '\0' };
 			if (UpperStrSearch == NULL)
 			{
 				printf("+--------------------------------------+\n");
@@ -720,25 +722,28 @@ void search_by_all_Contacts(AddressBook* my_addressbook, char letter_case)
 		printf("|    Would You like to save the search results ?    |\n");
 		printf("|                Y - YES | N - NO                   |\n");
 		printf("+---------------------------------------------------+\n");
+		ASKING;
 		char ask_search_save;
 		if ((ask_search_save = get_letter()) == YES)
-		printf("+---------------------------------------+\n");
-		printf("|    Select file format:                |\n");
-		printf("|     A - No formating.                 |\n");
-		printf("|     B - Separation with semicolon.    |\n");
-		printf("+---------------------------------------+\n");
-		ASKING;
-		switch ((ask_search_save = get_letter()))
 		{
-		case 'A':
-			save_to_file_searched_contacts(my_addressbook, ScoreBoard, SizeScoreBoard);
-			break;
-		case 'B':
-			save_to_file_searched_semicolon_contacts(my_addressbook, ScoreBoard, SizeScoreBoard);
-			break;
-		default:
-			printf("Incorrect format!\n");
-			break;
+			printf("+---------------------------------------+\n");
+			printf("|    Select file format:                |\n");
+			printf("|     A - No formating.                 |\n");
+			printf("|     B - Separation with semicolon.    |\n");
+			printf("+---------------------------------------+\n");
+			ASKING;
+			switch ((ask_search_save = get_letter()))
+			{
+			case 'A':
+				save_to_file_searched_contacts(my_addressbook, ScoreBoard, SizeScoreBoard, strSearch);
+				break;
+			case 'B':
+				save_to_file_searched_semicolon_contacts(my_addressbook, ScoreBoard, SizeScoreBoard,	strSearch);
+				break;
+			default:
+				printf("Incorrect format!\n");
+				break;
+			}
 		}
 	}
 	free(ScoreBoard);

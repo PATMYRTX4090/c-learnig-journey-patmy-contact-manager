@@ -6,6 +6,7 @@
 #include <stdbool.h>
 #include <Windows.h>
 #include <ctype.h>
+#include <time.h>
 
 
 /*
@@ -43,6 +44,9 @@
 	Value defining size of the pointer array.
 */
 #define LIMIT_FIELDS 5
+
+
+#define MAX_FILE_NAME 64
 
 /*
 	Specifies the size of the structure field: name and last_name.
@@ -254,12 +258,12 @@ void save_to_file_semicolon_my_addressbook(AddressBook* my_addressbook);
 /*
 	Function allows to save a search results to file in text mode.
 */
-void save_to_file_searched_contacts(AddressBook* my_addressbook, int* ScoreBoard, int SizeScoreBoard);
+void save_to_file_searched_contacts(AddressBook* my_addressbook, int* ScoreBoard, int SizeScoreBoard, char SearchStr[]);
 
 /*
 	Function allows to save a search results to file in text mode, fields separated with semicolons.
 */
-void save_to_file_searched_semicolon_contacts(AddressBook* my_addressbook, int* ScoreBoard, int SizeScoreBoard);
+void save_to_file_searched_semicolon_contacts(AddressBook* my_addressbook, int* ScoreBoard, int SizeScoreBoard, char SeearchedStr[]);
 
 /*
  	Function allows to save Addressbook and Contacts to file in binary mode.
@@ -274,22 +278,22 @@ void is_struct_saved_to_file(AddressBook* my_addressbook);
 /*
 	Main menu for reading struct.
 */
-AddressBook* reading_struct_from_file_main();
+void reading_struct_from_file_main(AddressBook* my_addressbook);
 
 /*
 	Function for reading struct from file in text mode.
 */
-AddressBook* read_from_file_my_addressbook();
+void read_from_file_my_addressbook(AddressBook* my_addressbook);
 
 /*
 	Function for reading struct from file in text mode - fields separeted with semicolon.
 */
-AddressBook* read_from_file_semicolon_my_addressbook();
+void read_from_file_semicolon_my_addressbook(AddressBook* my_addressbook);
 
 /*
 	 Function for reading struct from file in binare mode.
 */
-AddressBook* bin_read_from_file_my_addressbook();
+void bin_read_from_file_my_addressbook(AddressBook* my_addressbook);
 
 /*
 	All initialization function in one place.
@@ -299,5 +303,7 @@ AddressBook* bin_read_from_file_my_addressbook();
 AddressBook* init_struct_main(int type_init);
 
 
+
+char* making_or_reading_a_file_name(char* file_name, char* Searched_String, int bin_txt);
 
 
