@@ -45,18 +45,10 @@
 */
 #define LIMIT_FIELDS 5
 
-
-#define MAX_FILE_NAME 64
-
 /*
 	Specifies the size of the structure field: name and last_name.
 */
 #define MAX_NAME 32
-
-/*
-	Specifies the size of the file name for reading and writing.
-*/
-#define MAX_FILENAME 32
 
 /*
 	Specifies the size of the structure field: phone_number.
@@ -115,7 +107,7 @@ typedef struct
 typedef struct
 {
 	Contact* contacts;
-	char file_name[MAX_FILENAME];
+	char file_name[FILENAME_MAX];
 	int capacity;
 	int size;
 	bool is_modified;
@@ -302,8 +294,35 @@ void bin_read_from_file_my_addressbook(AddressBook* my_addressbook);
 */
 AddressBook* init_struct_main(int type_init);
 
-
-
+/*
+	The function allows for specyfying a filename for reading, writing, and generates a filename for search results.
+*/
 char* making_or_reading_a_file_name(char* file_name, char* Searched_String, int bin_txt);
 
+/*
+	This feature allows you to add file content to an existing address book; 
+	supported file types include .bin files, unformatted .txt files, 
+	and files that use semicolons as delimiters between the fields of the data structure.
+*/
+void reading_from_file_add_to_my_adddressbook(AddressBook* my_addressbook);
 
+/*
+	After adding the file content to the existing structure, the function corrects the contact IDs.
+*/
+void organize_id(AddressBook* my_addressbook);
+
+/*
+	Allows to change name of the Address Book, currently loaded.
+*/
+void change_my_addressbook_name(AddressBook* my_addressbook);
+
+/*
+	IN progress --> czy plik to plik zdatny do odczytu.
+*/
+bool check_if_file_empty(FILE* FILE_CHECK, char* file_name);
+
+
+/*
+	Looking for bugs...
+*/
+void check_capacity_size(AddressBook* my_addressbook);

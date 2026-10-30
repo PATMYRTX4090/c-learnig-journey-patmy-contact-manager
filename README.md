@@ -1,43 +1,29 @@
-﻿FIRST QUEST  
-
+﻿v1.00  
+  
 START:		06.10.2026  
-END:		31.10.2026 ?  
-
-STAGE I (Weeks 1-9)  
+END:		30.10.2026  
+  
 PROJECT 1 - Contacts Manager  
-	
+  
 Have to be stored:  
-
+  
 ID,  
 name,  
 last name,  
 phone number,  
 email adress,  
 company name.  
-			
+  			
 Functionality:  
-								
-add------------------>DONE 10.10.2026  			  
-view----------------->DONE 10.10.2026  
-delete--------------->DONE 11.10.2026  
-search--------------->DONE 15.10.2026  
-edit----------------->DONE 16.10.2026  
-save to file--------->DONE 17.10.2026  
-read from file------->DONE 17.10.2026  
-
-Tests --------------->WORK IN PROGRESS  
-used file with 10 000 contacts,  
-finded bugs:  
-1. Run-Time Check Failure #2 .Stack around the variable 'UpperContactName' was corrupted to small int  
-used for array declaration. Used MAX_NAME = 32, now MAX_EMAIL = 64.  
-2.  
-
-
-What will You train:  
-
-struct, pointers,  
-dynamic arrays, malloc, realloc,  
-file operation,  
+  								
+add  
+view  
+delete  
+search  
+edit  
+save to file  
+read from file  
+  
 
 Files organization:  
 	contact_manager.h  
@@ -47,4 +33,6 @@ Files organization:
 	contacts.c  
 		- all function definition for adding, viewing, searching, deleting and editing.  
 	files.c  
-		-  function for file handling.  
+		-  function for file handling, saving, reading.    
+
+Number of lines of code: 2139  
